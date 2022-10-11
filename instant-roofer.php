@@ -1,3 +1,4 @@
+<?php
 /**
 * Plugin Name:       Instant Roofer
 * Plugin URI:        https://instantroofer.com/integrations/wordpress-plugin
@@ -12,4 +13,3 @@
 * Text Domain:       instant-roofer-plugin
 * Domain Path:       /languages
 */
-
