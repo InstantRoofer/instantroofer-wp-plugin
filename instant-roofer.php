@@ -63,7 +63,7 @@ function instantroofer_shortcode( $atts = [] ) {
             <iframe
                 id="instantroofer-iframe"
                 title="Instant Roofer Booking Engine"
-                src="https://book.instantroofer.com"></iframe>"
+                src="https://book.instantroofer.com"
                 width="{$ir_atts['width']}px"
                 height="{$ir_atts['height']}px"
             ></iframe>
