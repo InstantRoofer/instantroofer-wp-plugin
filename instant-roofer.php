@@ -75,14 +75,6 @@ STR;
             width="{$ir_atts['width']}px"
             height="{$ir_atts['height']}px"
         >
-            <iframe
-                id="instantroofer-iframe"
-                title="Instant Roofer Booking Engine"
-                src="https://book.instantroofer.com"
-                width="{$ir_atts['width']}px"
-                height="{$ir_atts['height']}px"
-            ></iframe>
-            <p><a href="https://instantroofer.com"></a></p>
         </div>
 STR;
 }
