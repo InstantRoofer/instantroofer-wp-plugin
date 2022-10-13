@@ -16,7 +16,7 @@
 
 const uuidv4Pattern = "/[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-(:?8|9|A|B)[a-f0-9]{3}-[a-f0-9]{12}/i";
 
-$anchors = [
+const ANCHORS = [
     'Anchor text 1',
     'Anchor text 2',
     'Anchor text 3',
@@ -28,6 +28,11 @@ $anchors = [
     'Anchor text 9',
     'Anchor text 10',
 ];
+
+function getAnchorText($id) {
+    $i = intval(10/count(ANCHORS)*hexdec($id[0]));
+    return ANCHORS[$i];
+}
 
 function callback_for_setting_up_scripts() {
     wp_register_style( 'instantroofer', plugins_url('style.css', __FILE__) );
@@ -69,6 +74,9 @@ STR;
 		), $atts
 	);
 
+    $accountId = $ir_atts.id;
+    $anchorText = getAnchorText($accountId);
+
     $spinnerUrl = plugins_url('images/Iphone-spinner-2.gif', __FILE__);
 
 	return <<<STR
@@ -79,11 +87,11 @@ STR;
             <iframe
                 id="instantroofer-iframe"
                 title="Instant Roofer Booking Engine"
-                src="https://book.instantroofer.com"
+                src="https://book.instantroofer.com?id=$accountId"
                 width="{$ir_atts['width']}px"
                 height="{$ir_atts['height']}px"
             ></iframe>
-            <p><a href="https://instantroofer.com"></a></p>
+            <p><a href="https://instantroofer.com">$anchorText</a></p>
         </div>
 STR;
 }
