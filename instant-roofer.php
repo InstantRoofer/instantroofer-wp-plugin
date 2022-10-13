@@ -3,7 +3,7 @@
 * Plugin Name:       Instant Roofer Booking Engine
 * Plugin URI:        https://instantroofer.com/integrations/wordpress-plugin
 * Description:       Embed the Instant Roofer Booking Engine on your WP site.
-* Version:           1.10.15
+* Version:           1.10.16
 * Requires at least: 5.2
 * Requires PHP:      7.2
 * Author:            Charles Koehl
@@ -75,7 +75,7 @@ STR;
 	);
 
     $accountId = $ir_atts.id;
-    //$anchorText = getAnchorText($accountId);
+    $anchorText = getAnchorText($accountId);
 
     $spinnerUrl = plugins_url('images/Iphone-spinner-2.gif', __FILE__);
 
@@ -91,7 +91,7 @@ STR;
                 width="{$ir_atts['width']}px"
                 height="{$ir_atts['height']}px"
             ></iframe>
-            <p><a href="https://instantroofer.com">anchor text</a></p>
+            <p><a href="https://instantroofer.com">$anchorText</a></p>
         </div>
 STR;
 }
