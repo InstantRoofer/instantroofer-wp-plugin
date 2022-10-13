@@ -57,15 +57,15 @@ function instantroofer_shortcode( $atts = [] ) {
 	return <<<STR
         <div
             class="instantroofer-container"
-            width="{$ir_atts['width']}"
-            height="{$ir_atts['height']}"
+            width="{$ir_atts['width']}px"
+            height="{$ir_atts['height']}px"
         >
             <iframe
                 id="instantroofer-iframe"
                 title="Instant Roofer Booking Engine"
                 src="https://book.instantroofer.com"></iframe>"
-                width="{$ir_atts['width']}"
-                height="{$ir_atts['height']}"
+                width="{$ir_atts['width']}px"
+                height="{$ir_atts['height']}px"
             ></iframe>
             <p><a href="https://instantroofer.com"></a></p>
         </div>
