@@ -17,16 +17,13 @@
 const uuidv4Pattern = "/[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-(:?8|9|A|B)[a-f0-9]{3}-[a-f0-9]{12}/i";
 
 const ANCHORS = [
-    'Anchor text 1',
-    'Anchor text 2',
-    'Anchor text 3',
-    'Anchor text 4',
-    'Anchor text 5',
-    'Anchor text 6',
-    'Anchor text 7',
-    'Anchor text 8',
-    'Anchor text 9',
-    'Anchor text 10',
+    'online roof quote',
+    'free roof quote',
+    'Instant Roofer',
+    'roof replacement cost',
+    'roofing calculator',
+    'cost of roof replacement',
+    'cost to replace roof'
 ];
 
 function getAnchorText($id) {
