@@ -72,8 +72,7 @@ STR;
 	return <<<STR
         <div
             class="instantroofer-container"
-            width="{$ir_atts['width']}px"
-            height="{$ir_atts['height']}px"
+            style="width: {$ir_atts['width']}px; height: {$ir_atts['height']}px"
         >
         </div>
 STR;
