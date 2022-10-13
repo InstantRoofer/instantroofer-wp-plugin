@@ -74,7 +74,7 @@ STR;
 	return <<<STR
         <div
             class="instantroofer-container"
-            style="width: {$ir_atts['width']}px; height: {$ir_atts['height']}px; background-image: url('$spinnerUrl')"
+            style="width: {$ir_atts['width']}px; height: {$ir_atts['height']}px; background-image: url('$spinnerUrl'); background-repeat: no-repeat; background-position: center;"
         >
         </div>
 STR;
