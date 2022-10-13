@@ -74,7 +74,6 @@ STR;
             'id' => null
 		), $atts
 	);
-    var_dump($ir_atts);
 
     $accountId = $ir_atts['id'];
     $anchorText = getAnchorText($accountId);
