@@ -75,7 +75,7 @@ STR;
 	);
 
     $accountId = $ir_atts.id;
-    $anchorText = getAnchorText($accountId);
+    //$anchorText = getAnchorText($accountId);
 
     $spinnerUrl = plugins_url('images/Iphone-spinner-2.gif', __FILE__);
 
@@ -91,7 +91,7 @@ STR;
                 width="{$ir_atts['width']}px"
                 height="{$ir_atts['height']}px"
             ></iframe>
-            <p><a href="https://instantroofer.com">$anchorText</a></p>
+            <p><a href="https://instantroofer.com">anchor text</a></p>
         </div>
 STR;
 }
