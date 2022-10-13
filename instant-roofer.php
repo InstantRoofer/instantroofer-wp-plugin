@@ -71,6 +71,7 @@ STR;
 		array(
 			'width' => 1024,
 			'height' => 1024,
+            'id' => null
 		), $atts
 	);
     var_dump($ir_atts);
