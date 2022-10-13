@@ -30,7 +30,7 @@ const ANCHORS = [
 ];
 
 function getAnchorText($id) {
-    $i = intval(10/count(ANCHORS)*hexdec($id[0]));
+    $i = intval(count(ANCHORS)/16*hexdec($id[0]));
     return ANCHORS[$i];
 }
 
