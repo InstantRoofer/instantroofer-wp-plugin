@@ -49,7 +49,9 @@ function instantroofer_shortcode( $atts = [] ) {
     $matchResult = preg_match(uuidv4Pattern, $atts['id']);
 
     if(preg_match(uuidv4Pattern, $atts['id']) !== 1) {
-        return '<p>The instantroofer "id" the "instantroofer" shortcode is not valid. Please make sure you entered it correctly. (matchResult = $matchResult)</p>';
+        return <<<STR
+<p>The instantroofer "id" the "instantroofer" shortcode is not valid. Please make sure you entered it correctly. (matchResult = $matchResult)</p>
+STR;
     }
 
 	// override default attributes with user attributes
