@@ -29,6 +29,11 @@ $anchors = [
     'Anchor text 10',
 ];
 
+function callback_for_setting_up_scripts() {
+    wp_register_style( 'instantroofer', plugins_url('style.css', __FILE__) );
+    wp_enqueue_style( 'instantroofer' );
+}
+
 /**
  * /**
  * The [instantroofer] shortcode.
@@ -89,4 +94,5 @@ function instantroofer_shortcodes_init() {
 	add_shortcode( 'instantroofer', 'instantroofer_shortcode' );
 }
 
+add_action('wp_enqueue_scripts', 'callback_for_setting_up_scripts');
 add_action( 'init', 'instantroofer_shortcodes_init' );
