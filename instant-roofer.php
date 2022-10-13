@@ -74,7 +74,7 @@ STR;
 		), $atts
 	);
 
-    $accountId = $ir_atts.id;
+    $accountId = $ir_atts['id'];
     $anchorText = getAnchorText($accountId);
 
     $spinnerUrl = plugins_url('images/Iphone-spinner-2.gif', __FILE__);
