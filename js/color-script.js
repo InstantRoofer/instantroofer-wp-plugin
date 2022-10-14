@@ -17,14 +17,15 @@ const colorPickerFields = {
     }
 }
 
-jQuery(document).ready(function($) {
+jQuery(document).ready(function($){
     for(const fieldId in colorPickerFields) {
         const input = $(`#${fieldId}`)
         const colorButton = $(input).parent('.wp-picker-container').find('.wp-color-result.button')
         const options = colorPickerFields[fieldId]
         input.wpColorPicker(options);
         if($(input).val().length === 0) {
-            $(colorButton).val(options.defaultColor)
+            console.info('setting default color to ', options.defaultColor)
+            $(input).val(options.defaultColor)
         }
     }
 });
