@@ -138,9 +138,8 @@ function instantroofer_field_font_family_cb( $args ) {
             foreach (FONT_FAMILIES as $stack) {
                 $stackName = explode(',', $stack)[0];
                 $selectedAttr = isset($options[$args['label_for']]) ? (selected($options[$args['label_for']], $stack, false)) : ('');
-                $label = esc_html_e($stackName, 'general');
                 echo <<<STR
-                    <option value="$stack" $selectedAttr>$label</option>
+                    <option value="$stack" $selectedAttr>$stackName</option>
 STR;
             }
         ?>
