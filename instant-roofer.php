@@ -16,8 +16,6 @@
 
 require_once('custom-settings-page.php');
 
-const uuidv4Pattern = "/[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-(:?8|9|A|B)[a-f0-9]{3}-[a-f0-9]{12}/i";
-
 const ANCHORS = [
     'online roof quote',
     'free roof quote',
@@ -28,7 +26,7 @@ const ANCHORS = [
     'cost to replace roof'
 ];
 
-function getAnchorText($id) {
+function get_anchor_text($id) {
     $i = intval(count(ANCHORS)/16*hexdec($id[0]));
     return ANCHORS[$i];
 }
@@ -42,48 +40,27 @@ function callback_for_setting_up_scripts() {
  * /**
  * The [instantroofer] shortcode.
  *
- * Accepts a title and will display a box.
- *
- * @param array  $atts    Shortcode attributes. Default empty.
  * @return string Shortcode output.
  */
-function instantroofer_shortcode( $atts = [] ) {
-	// normalize attribute keys, lowercase
-	$atts = array_change_key_case( (array) $atts, CASE_LOWER );
+function instantroofer_shortcode() {
 
-    if(!$atts['id']) {
+    $settings = get_option('instantroofer_options');
+
+    $accountId = $settings['instantroofer_field_account_id'];
+
+    if(!$accountId) {
         return <<<STR
-            <p>Please add your instantroofer "id" from your <a href="https://account.instantroofer.com target=\">account profile</a> to the "instantroofer" shortcode.</p>
+            <p>Your Instant Roofer account ID is missing or invalid in the plugin settings.</p>
 STR;
     }
-
-    $matchResult = preg_match(uuidv4Pattern, $atts['id']);
-
-    if($matchResult !== 1) {
-        return <<<STR
-            <p>The instantroofer "id" the "instantroofer" shortcode is invalid. Please make sure you entered it correctly.</p>
-STR;
-    }
-
-	// override default attributes with user attributes
-	$ir_atts = shortcode_atts(
-		array(
-			'width' => 640,
-			'height' => 690,
-            'id' => null
-		), $atts
-	);
-
-    $accountId = $ir_atts['id'];
-    $anchorText = getAnchorText($accountId);
-
+    $anchorText = get_anchor_text($accountId);
+    $widthAttr = $settings['width'].'px';
+    $heightAttr = $settings['height'].'px';
     $spinnerUrl = plugins_url('assets/Iphone-spinner-2.gif', __FILE__);
-
-    $generalOpts = get_option('instantroofer_options');
 
     $iframeQueryStringVals = array(
         'id' => $accountId,
-        'fontFamily' => $generalOpts['instantroofer_field_font_family'],
+        'fontFamily' => $settings['instantroofer_field_font_family'],
     );
 
     $iframeQueryString = http_build_query($iframeQueryStringVals);
@@ -91,14 +68,14 @@ STR;
 	return <<<STR
         <div
             class="instantroofer-container"
-            style="width: {$ir_atts['width']}px; height: {$ir_atts['height']}px; background-image: url('$spinnerUrl'); background-repeat: no-repeat; background-position: center;"
+            style="width: $widthAttr; height: $heightAttr; background-image: url('$spinnerUrl'); background-repeat: no-repeat; background-position: center;"
         >
             <iframe
                 id="instantroofer-iframe"
                 title="Instant Roofer Booking Engine"
                 src="https://book.instantroofer.com?$$iframeQueryString"
-                width="{$ir_atts['width']}px"
-                height="{$ir_atts['height']}px"
+                width="$widthAttr"
+                height="$widthAttr"
             ></iframe>
             <p><a href="https://instantroofer.com">$anchorText</a></p>
         </div>

@@ -38,12 +38,25 @@ const FONT_FAMILIES = [
     'Verdana, Geneva, sans-serif.',
 ];
 
+
+
+const UUID_RGX = "/[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-(:?8|9|A|B)[a-f0-9]{3}-[a-f0-9]{12}/i";
+
+const FONT_FAMILY_RGX = "/^[a-z, ]+$/i";
+
+function sanitize_settings($input) {
+    return array(
+        'instantroofer_field_account_id' => preg_match(UUID_RGX, $input['instantroofer_field_account_id']) === 1 ? $input['instantroofer_field_account_id'] : '',
+        'instantroofer_field_font_family' =>preg_match(FONT_FAMILY_RGX, $input['instantroofer_field_font_family']) === 1 ? $input['instantroofer_field_font_family'] : '',
+    );
+}
+
 /**
  * custom option and settings
  */
 function instantroofer_settings_init() {
     // Register a new setting for "general" page.
-    register_setting( 'general', 'instantroofer_options' );
+    register_setting( 'general', 'instantroofer_options', 'sanitize_settings');
 
     // Register a new section in the "general" page.
     add_settings_section(
@@ -66,6 +79,15 @@ function instantroofer_settings_init() {
             'class'             => 'instantroofer_row',
             'instantroofer_custom_data' => 'custom',
         )
+    );
+
+    // Register a new field in the "instantroofer_section_developers" section, inside the "general" page.
+    add_settings_field(
+        'instantroofer_field_account_id',
+        __( 'Account ID', 'general' ),
+        'instantroofer_field_account_id_cb',
+        'general',
+        'instantroofer_section_developers'
     );
 }
 
@@ -122,6 +144,25 @@ STR;
         ?>
     </select>
     <?php
+}
+
+/**
+ * Account ID field callback function.
+ *
+ * @param array $args
+ */
+function instantroofer_field_account_id_cb( $args ) {
+    // Get the value of the setting we've registered with register_setting()
+    $options = get_option( 'instantroofer_options' );
+    $value = $options['instantroofer_field_account_id'];
+    echo <<<STR
+    <input
+            type="text"
+            name="instantroofer_options[instantroofer_field_account_id]"
+            id="instantroofer_field_account_id"
+            value="$value"
+    >
+STR;
 }
 
 /**
