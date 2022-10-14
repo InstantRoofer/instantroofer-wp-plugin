@@ -176,8 +176,6 @@ STR;
 
 /**
  * Account ID field callback function.
- *
- * @param array $args
  */
 function instantroofer_field_account_id_cb()
 {
@@ -197,8 +195,6 @@ STR;
 
 /**
  * Width field callback function.
- *
- * @param array $args
  */
 function instantroofer_field_width_cb()
 {
@@ -217,8 +213,6 @@ STR;
 
 /**
  * Height field callback function.
- *
- * @param array $args
  */
 function instantroofer_field_height_cb()
 {
@@ -236,9 +230,7 @@ STR;
 }
 
 /**
- * Height field callback function.
- *
- * @param array $args
+ * Font color field callback function.
  */
 function instantroofer_field_font_color_cb()
 {
@@ -249,7 +241,7 @@ function instantroofer_field_font_color_cb()
         type="text"
         name="instantroofer_options[instantroofer_field_font_color]"
         id="instantroofer_field_font_color"
-        value=""
+        value="$value"
         size="9"
     >
 STR;
