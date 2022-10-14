@@ -161,6 +161,7 @@ function instantroofer_field_account_id_cb( $args ) {
             name="instantroofer_options[instantroofer_field_account_id]"
             id="instantroofer_field_account_id"
             value="$value"
+            size="36"
     >
 STR;
 }
