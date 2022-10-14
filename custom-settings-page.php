@@ -159,7 +159,7 @@ STR;
         $stackName = explode(',', $stack)[0];
         $selectedAttr = isset($options[$args['label_for']]) ? (selected($options[$args['label_for']], $stack, false)) : ('');
         echo <<<STR
-        <option value="$stack" style="font-family: $stack" $selectedAttr>$stackName</option>
+        <option value="$stack" $selectedAttr>$stackName</option>
 STR;
     }
     echo <<<STR
