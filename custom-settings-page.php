@@ -39,53 +39,62 @@ const FONT_FAMILIES = [
 ];
 
 
-
 const UUID_RGX = "/[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-(:?8|9|A|B)[a-f0-9]{3}-[a-f0-9]{12}/i";
 
 const FONT_FAMILY_RGX = "/^[a-z, ]+$/i";
 
-function sanitize_settings($input) {
+function sanitize_settings($input)
+{
     return array(
         'instantroofer_field_account_id' => preg_match(UUID_RGX, $input['instantroofer_field_account_id']) === 1 ? $input['instantroofer_field_account_id'] : $input['instantroofer_field_account_id'],
-        'instantroofer_field_font_family' =>preg_match(FONT_FAMILY_RGX, $input['instantroofer_field_font_family']) === 1 ? $input['instantroofer_field_font_family'] : '',
+        'instantroofer_field_font_family' => preg_match(FONT_FAMILY_RGX, $input['instantroofer_field_font_family']) === 1 ? $input['instantroofer_field_font_family'] : '',
+        'instantroofer_field_width' => (int)$input['instantroofer_field_width'] > 0 ? $input['instantroofer_field_width'] : 640,
+        'instantroofer_field_width' => (int)$input['instantroofer_field_width'] > 0 ? $input['instantroofer_field_width'] : 690,
     );
 }
 
 /**
  * custom option and settings
  */
-function instantroofer_settings_init() {
+function instantroofer_settings_init()
+{
     // Register a new setting for "general" page.
-    register_setting( 'general', 'instantroofer_options', 'sanitize_settings');
+    register_setting('general', 'instantroofer_options', 'sanitize_settings');
 
     // Register a new section in the "general" page.
     add_settings_section(
         'instantroofer_section_developers',
-        __( 'General Settings', 'general' ),
+        __('General Settings', 'general'),
         'instantroofer_section_developers_callback',
         'general'
     );
 
-    // Register a new field in the "instantroofer_section_developers" section, inside the "general" page.
     add_settings_field(
         'instantroofer_field_font_family', // As of WP 4.6 this value is used only internally.
         // Use $args' label_for to populate the id inside the callback.
-        __( 'Font', 'general' ),
+        __('Font', 'general'),
         'instantroofer_field_font_family_cb',
         'general',
         'instantroofer_section_developers',
         array(
-            'label_for'         => 'instantroofer_field_font_family',
-            'class'             => 'instantroofer_row',
+            'label_for' => 'instantroofer_field_font_family',
+            'class' => 'instantroofer_row',
             'instantroofer_custom_data' => 'custom',
         )
     );
 
-    // Register a new field in the "instantroofer_section_developers" section, inside the "general" page.
     add_settings_field(
-        'instantroofer_field_account_id',
-        __( 'Account ID', 'general' ),
-        'instantroofer_field_account_id_cb',
+        'instantroofer_field_width',
+        __('Width', 'general'),
+        'instantroofer_field_width_cb',
+        'general',
+        'instantroofer_section_developers'
+    );
+
+    add_settings_field(
+        'instantroofer_field_height',
+        __('Height', 'general'),
+        'instantroofer_field_height_cb',
         'general',
         'instantroofer_section_developers'
     );
@@ -94,7 +103,7 @@ function instantroofer_settings_init() {
 /**
  * Register our instantroofer_settings_init to the admin_init action hook.
  */
-add_action( 'admin_init', 'instantroofer_settings_init' );
+add_action('admin_init', 'instantroofer_settings_init');
 
 
 /**
@@ -106,11 +115,12 @@ add_action( 'admin_init', 'instantroofer_settings_init' );
 /**
  * Developers section callback function.
  *
- * @param array $args  The settings array, defining title, id, callback.
+ * @param array $args The settings array, defining title, id, callback.
  */
-function instantroofer_section_developers_callback( $args ) {
+function instantroofer_section_developers_callback($args)
+{
     ?>
-    <p id="<?php echo esc_attr( $args['id'] ); ?>"><?php esc_html_e( 'Customize the Instant Roofer booking wizard.', 'general' ); ?></p>
+    <p id="<?php echo esc_attr($args['id']); ?>"><?php esc_html_e('Customize the Instant Roofer booking wizard.', 'general'); ?></p>
     <?php
 }
 
@@ -124,23 +134,24 @@ function instantroofer_section_developers_callback( $args ) {
  *
  * @param array $args
  */
-function instantroofer_field_font_family_cb( $args ) {
+function instantroofer_field_font_family_cb($args)
+{
     // Get the value of the setting we've registered with register_setting()
-    $options = get_option( 'instantroofer_options' );
+    $options = get_option('instantroofer_options');
     ?>
     <select
-        id="<?php echo esc_attr( $args['label_for'] ); ?>"
-        data-custom="<?php echo esc_attr( $args['instantroofer_custom_data'] ); ?>"
-        name="instantroofer_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
+            id="<?php echo esc_attr($args['label_for']); ?>"
+            data-custom="<?php echo esc_attr($args['instantroofer_custom_data']); ?>"
+            name="instantroofer_options[<?php echo esc_attr($args['label_for']); ?>]"
     >
         <?php
-            foreach (FONT_FAMILIES as $stack) {
-                $stackName = explode(',', $stack)[0];
-                $selectedAttr = isset($options[$args['label_for']]) ? (selected($options[$args['label_for']], $stack, false)) : ('');
-                echo <<<STR
+        foreach (FONT_FAMILIES as $stack) {
+            $stackName = explode(',', $stack)[0];
+            $selectedAttr = isset($options[$args['label_for']]) ? (selected($options[$args['label_for']], $stack, false)) : ('');
+            echo <<<STR
                     <option value="$stack" $selectedAttr>$stackName</option>
 STR;
-            }
+        }
         ?>
     </select>
     <?php
@@ -151,9 +162,10 @@ STR;
  *
  * @param array $args
  */
-function instantroofer_field_account_id_cb() {
+function instantroofer_field_account_id_cb()
+{
     // Get the value of the setting we've registered with register_setting()
-    $options = get_option( 'instantroofer_options' );
+    $options = get_option('instantroofer_options');
     $value = $options['instantroofer_field_account_id'];
     echo <<<STR
     <input
@@ -167,9 +179,52 @@ STR;
 }
 
 /**
+ * Width field callback function.
+ *
+ * @param array $args
+ */
+function instantroofer_field_width_cb()
+{
+    // Get the value of the setting we've registered with register_setting()
+    $options = get_option('instantroofer_options');
+    $value = $options['instantroofer_field_width'];
+    echo <<<STR
+    <input
+            type="text"
+            name="instantroofer_options[instantroofer_field_width]"
+            id="instantroofer_field_width"
+            value="$value"
+            size="4"
+    >
+STR;
+}
+
+/**
+ * Height field callback function.
+ *
+ * @param array $args
+ */
+function instantroofer_field_height_cb()
+{
+    // Get the value of the setting we've registered with register_setting()
+    $options = get_option('instantroofer_options');
+    $value = $options['instantroofer_field_height'];
+    echo <<<STR
+    <input
+            type="text"
+            name="instantroofer_options[instantroofer_field_height]"
+            id="instantroofer_field_height"
+            value="$value"
+            size="4"
+    >
+STR;
+}
+
+/**
  * Add the top level menu page.
  */
-function instantroofer_options_page() {
+function instantroofer_options_page()
+{
     add_menu_page(
         'Instantroofer',
         'Instant Roofer',
@@ -183,15 +238,16 @@ function instantroofer_options_page() {
 /**
  * Register our instantroofer_options_page to the admin_menu action hook.
  */
-add_action( 'admin_menu', 'instantroofer_options_page' );
+add_action('admin_menu', 'instantroofer_options_page');
 
 
 /**
  * Top level menu callback function
  */
-function instantroofer_options_page_html() {
+function instantroofer_options_page_html()
+{
     // check user capabilities
-    if ( ! current_user_can( 'manage_options' ) ) {
+    if (!current_user_can('manage_options')) {
         return;
     }
 
@@ -199,25 +255,25 @@ function instantroofer_options_page_html() {
 
     // check if the user have submitted the settings
     // WordPress will add the "settings-updated" $_GET parameter to the url
-    if ( isset( $_GET['settings-updated'] ) ) {
+    if (isset($_GET['settings-updated'])) {
         // add settings saved message with the class of "updated"
-        add_settings_error( 'instantroofer_messages', 'instantroofer_message', __( 'Settings Saved', 'general' ), 'updated' );
+        add_settings_error('instantroofer_messages', 'instantroofer_message', __('Settings Saved', 'general'), 'updated');
     }
 
     // show error/update messages
-    settings_errors( 'instantroofer_messages' );
+    settings_errors('instantroofer_messages');
     ?>
     <div class="wrap">
-        <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+        <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
         <form action="options.php" method="post">
             <?php
             // output security fields for the registered setting "general"
-            settings_fields( 'general' );
+            settings_fields('general');
             // output setting sections and their fields
             // (sections are registered for "general", each field is registered to a specific section)
-            do_settings_sections( 'general' );
+            do_settings_sections('general');
             // output save settings button
-            submit_button( 'Save Settings' );
+            submit_button('Save Settings');
             ?>
         </form>
     </div>
