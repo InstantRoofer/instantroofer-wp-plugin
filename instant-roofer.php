@@ -79,7 +79,7 @@ STR;
                 width="$widthAttr"
                 height="$heightAttr"
             ></iframe>
-            <p><a href="https://instantroofer.com">$anchorText</a></p>
+            <p><a href="https://instantroofer.com" target="_blank">$anchorText</a></p>
         </div>
 STR;
 }
