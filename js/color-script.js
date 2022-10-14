@@ -19,14 +19,14 @@ const colorPickerFields = {
 
 jQuery(document).ready(function($){
     for(const fieldId in colorPickerFields) {
-        console.info('setting up', fieldId)
+        console.log('setting up', fieldId)
         const input = $(`#${fieldId}`)
         const colorButton = $(input).parent('.wp-picker-container').find('.wp-color-result.button')
         const options = colorPickerFields[fieldId]
         input.wpColorPicker(options);
         if($(input).val().length === 0) {
-            console.info('setting default color to ', options.defaultColor)
-            $(input).val(options.defaultColor)
+            console.log('setting default color to ', options.defaultColor)
+            // $(input).val(options.defaultColor)
         }
     }
 });
