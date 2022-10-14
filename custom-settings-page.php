@@ -147,23 +147,24 @@ function instantroofer_field_font_family_cb($args)
 {
     // Get the value of the setting we've registered with register_setting()
     $options = get_option('instantroofer_options');
-    ?>
+    $escLabel = esc_attr($args['label_for']);
+    echo <<<STR
     <select
-            id="<?php echo esc_attr($args['label_for']); ?>"
-            data-custom="<?php echo esc_attr($args['instantroofer_custom_data']); ?>"
-            name="instantroofer_options[<?php echo esc_attr($args['label_for']); ?>]"
+            id="{$args['label_for']}"
+            data-custom="{$args['instantroofer_custom_data']}"
+            name="instantroofer_options[$escLabel"
     >
-        <?php
-        foreach (FONT_FAMILIES as $stack) {
-            $stackName = explode(',', $stack)[0];
-            $selectedAttr = isset($options[$args['label_for']]) ? (selected($options[$args['label_for']], $stack, false)) : ('');
-            echo <<<STR
-                    <option value="$stack" style="font-family: $stack" $selectedAttr>$stackName</option>
 STR;
-        }
-        ?>
+    foreach (FONT_FAMILIES as $stack) {
+        $stackName = explode(',', $stack)[0];
+        $selectedAttr = isset($options[$args['label_for']]) ? (selected($options[$args['label_for']], $stack, false)) : ('');
+        echo <<<STR
+        <option value="$stack" style="font-family: $stack" $selectedAttr>$stackName</option>
+STR;
+    }
+    echo <<<STR
     </select>
-    <?php
+STR;
 }
 
 /**
