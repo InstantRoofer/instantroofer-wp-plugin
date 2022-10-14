@@ -95,17 +95,9 @@ function instantroofer_settings_init()
     );
 
     add_settings_field(
-        'instantroofer_field_font_color',
-        __('Height', 'general'),
-        'instantroofer_field_font_color_cb',
-        'general',
-        'instantroofer_section_developers'
-    );
-
-    add_settings_field(
         'instantroofer_field_font_family', // As of WP 4.6 this value is used only internally.
         // Use $args' label_for to populate the id inside the callback.
-        __('Font', 'general'),
+        __('Font Family', 'general'),
         'instantroofer_field_font_family_cb',
         'general',
         'instantroofer_section_developers',
@@ -114,6 +106,14 @@ function instantroofer_settings_init()
             'class' => 'instantroofer_row',
             'instantroofer_custom_data' => 'custom',
         )
+    );
+
+    add_settings_field(
+        'instantroofer_field_font_color',
+        __('Font Color', 'general'),
+        'instantroofer_field_font_color_cb',
+        'general',
+        'instantroofer_section_developers'
     );
 }
 
