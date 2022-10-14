@@ -19,13 +19,12 @@ const colorPickerFields = {
 
 jQuery(document).ready(function($){
     for(const fieldId in colorPickerFields) {
-        const input = $(`#${fieldId}`)
-        console.log('input id', input.attr('id'))
-        const colorButton = input.parent('.wp-picker-container').find('.wp-color-result')
-        console.log('colorButtons', colorButton.length)
-        console.log('colorButton has class wp-color-result:', colorButton.hasClass('wp-color-result'))
         const options = colorPickerFields[fieldId]
         input.wpColorPicker(options);
+        const input = $(`#${fieldId}`)
+        console.log('input id', input.attr('id'))
+        const colorButton = input.parent('.wp-picker-container').find('.wp-color-result').first()
+        console.log('colorButton has class wp-color-result:', colorButton.hasClass('wp-color-result'))
         if(input.val().length === 0) {
             colorButton.css({backgroundColor: options.defaultColor})
         }
