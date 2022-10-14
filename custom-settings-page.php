@@ -4,6 +4,63 @@
  * these functions could be run multiple times; this would result in a fatal error.
  */
 
+const FONT_FAMILIES = [
+    'Arial, Helvetica Neue, Helvetica, sans-serif.',
+    'Baskerville, Baskerville Old Face, Garamond, Times N',
+    'Bodoni MT, Bodoni 72, Didot, Didot LT STD, Hoefler T',
+    'Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sa',
+    'Calisto MT, Bookman Old Style, Bookman, Goudy Old St',
+    'Cambria, Georgia, serif.',
+    'Candara, Calibri, Segoe, Segoe UI, Optima, Arial, sa',
+    'Century Gothic, CenturyGothic, AppleGothic, sans-ser',
+    'Consolas, monaco, monospace.',
+    'Copperplate, Copperplate Gothic Light, fantasy.',
+    'Courier New, Courier, Lucida Sans Typewriter, Lucida',
+    'Dejavu Sans, Arial, Verdana, sans-serif.',
+    'Didot, Didot LT STD, Hoefler Text, Garamond, Calisto',
+    'Franklin Gothic, Arial Bold.',
+    'Garamond, Baskerville, Baskerville Old Face, Hoefler',
+    'Georgia, Times, Times New Roman, serif.',
+    'Gill Sans, Gill Sans MT, Calibri, sans-serif.',
+    'Goudy Old Style, Garamond, Big Caslon, Times New Rom',
+    'Helvetica Neue, Helvetica, Arial, sans-serif.',
+    'Impact, Charcoal, Helvetica Inserat, Bitstream Vera ',
+    'Lucida Bright, Georgia, serif.',
+    'Lucida Sans, Helvetica, Arial, sans-serif.',
+    'MS Sans Serif, sans-serif.',
+    'Optima, Segoe, Segoe UI, Candara, Calibri, Arial, sa',
+    'Palatino, Palatino Linotype, Palatino LT STD, Book A',
+    'Perpetua, Baskerville, Big Caslon, Palatino Linotype',
+    'Rockwell, Courier Bold, Courier, Georgia, Times, Tim',
+    'Segoe UI, Frutiger, Dejavu Sans, Helvetica Neue, Ari',
+    'Tahoma, Verdana, Segoe, sans-serif.',
+    'Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lu',
+    'Verdana, Geneva, sans-serif.',
+];
+
+/**
+ * Return a select option tag like this:
+ *
+ *
+<option value="red" <?php echo isset( $options[ $args['label_for'] ] ) ? ( selected( $options[ $args['label_for'] ], 'red', false ) ) : ( '' ); ?>>
+<?php esc_html_e( 'red font_family', 'general' ); ?>
+</option>
+ *
+ * @param $options
+ * @param $args
+ * @param $stack
+ * @return string
+ */
+function getFontOption($options, $args, $stack) {
+    $stackName = explode($stack, ',')[0];
+    $selectedAttr = isset( $options[ $args['label_for'] ] ) ? ( selected( $options[ $args['label_for'] ], $stack, false ) ) : ( '' );
+    $label = esc_html_e( $stackName, 'general' );
+    return <<<STR
+        <option value="$stack" $selectedAttr> $label </option>
+STR;
+
+}
+
 /**
  * custom option and settings
  */
@@ -14,21 +71,21 @@ function instantroofer_settings_init() {
     // Register a new section in the "general" page.
     add_settings_section(
         'instantroofer_section_developers',
-        __( 'The Matrix has you.', 'general' ),
+        __( 'General Settings', 'general' ),
         'instantroofer_section_developers_callback',
         'general'
     );
 
     // Register a new field in the "instantroofer_section_developers" section, inside the "general" page.
     add_settings_field(
-        'instantroofer_field_pill', // As of WP 4.6 this value is used only internally.
+        'instantroofer_field_font_family', // As of WP 4.6 this value is used only internally.
         // Use $args' label_for to populate the id inside the callback.
-        __( 'Pill', 'general' ),
-        'instantroofer_field_pill_cb',
+        __( 'Font', 'general' ),
+        'instantroofer_field_font_family_cb',
         'general',
         'instantroofer_section_developers',
         array(
-            'label_for'         => 'instantroofer_field_pill',
+            'label_for'         => 'instantroofer_field_font_family',
             'class'             => 'instantroofer_row',
             'instantroofer_custom_data' => 'custom',
         )
@@ -54,12 +111,12 @@ add_action( 'admin_init', 'instantroofer_settings_init' );
  */
 function instantroofer_section_developers_callback( $args ) {
     ?>
-    <p id="<?php echo esc_attr( $args['id'] ); ?>"><?php esc_html_e( 'Follow the white rabbit.', 'general' ); ?></p>
+    <p id="<?php echo esc_attr( $args['id'] ); ?>"><?php esc_html_e( 'Customize the Instant Roofer booking wizard.', 'general' ); ?></p>
     <?php
 }
 
 /**
- * Pill field callback function.
+ * Font_family field callback function.
  *
  * WordPress has magic interaction with the following keys: label_for, class.
  * - the "label_for" key value is used for the "for" attribute of the <label>.
@@ -68,26 +125,31 @@ function instantroofer_section_developers_callback( $args ) {
  *
  * @param array $args
  */
-function instantroofer_field_pill_cb( $args ) {
+function instantroofer_field_font_family_cb( $args ) {
     // Get the value of the setting we've registered with register_setting()
     $options = get_option( 'instantroofer_options' );
     ?>
     <select
-            id="<?php echo esc_attr( $args['label_for'] ); ?>"
-            data-custom="<?php echo esc_attr( $args['instantroofer_custom_data'] ); ?>"
-            name="instantroofer_options[<?php echo esc_attr( $args['label_for'] ); ?>]">
-        <option value="red" <?php echo isset( $options[ $args['label_for'] ] ) ? ( selected( $options[ $args['label_for'] ], 'red', false ) ) : ( '' ); ?>>
-            <?php esc_html_e( 'red pill', 'general' ); ?>
-        </option>
-        <option value="blue" <?php echo isset( $options[ $args['label_for'] ] ) ? ( selected( $options[ $args['label_for'] ], 'blue', false ) ) : ( '' ); ?>>
-            <?php esc_html_e( 'blue pill', 'general' ); ?>
-        </option>
+        id="<?php echo esc_attr( $args['label_for'] ); ?>"
+        data-custom="<?php echo esc_attr( $args['instantroofer_custom_data'] ); ?>"
+        name="instantroofer_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
+    >
+        <?php
+            foreach (FONT_FAMILIES as $stack) {
+                $stackName = explode($stack, ',')[0];
+                $selectedAttr = isset($options[$args['label_for']]) ? (selected($options[$args['label_for']], $stack, false)) : ('');
+                $label = esc_html_e($stackName, 'general');
+                echo <<<STR
+                    <option value="$stack" $selectedAttr>$label</option>
+STR;
+            }
+        ?>
     </select>
     <p class="description">
-        <?php esc_html_e( 'You take the blue pill and the story ends. You wake in your bed and you believe whatever you want to believe.', 'general' ); ?>
+        <?php esc_html_e( 'You take the blue font_family and the story ends. You wake in your bed and you believe whatever you want to believe.', 'general' ); ?>
     </p>
     <p class="description">
-        <?php esc_html_e( 'You take the red pill and you stay in Wonderland and I show you how deep the rabbit-hole goes.', 'general' ); ?>
+        <?php esc_html_e( 'You take the red font_family and you stay in Wonderland and I show you how deep the rabbit-hole goes.', 'general' ); ?>
     </p>
     <?php
 }
