@@ -19,6 +19,7 @@ const colorPickerFields = {
 
 jQuery(document).ready(function($){
     for(const fieldId in colorPickerFields) {
+        console.info('setting up ', fieldId)
         const input = $(`#${fieldId}`)
         // const colorButton = $(input).parent()
         const options = colorPickerFields[fieldId]
