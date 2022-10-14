@@ -22,6 +22,7 @@ jQuery(document).ready(function($){
         const input = $(`#${fieldId}`)
         const options = colorPickerFields[fieldId]
         input.wpColorPicker(options);
-        if(input.val() === 'Default') input.val(options.defaultColor)
+        // const colorButton = $(input).parent()
+        if($(input).val().length === 0) $(input).val(options.defaultColor)
     }
 });
