@@ -81,6 +81,13 @@ STR;
 
     $generalOpts = get_option('instantroofer_options');
 
+    $iframeQueryStringVals = array(
+        'id' => $accountId,
+        'fontFamily' => $generalOpts['instantroofer_field_font_family'],
+    );
+
+    $iframeQueryString = http_build_query($iframeQueryStringVals);
+
 	return <<<STR
         <div
             class="instantroofer-container"
@@ -89,12 +96,11 @@ STR;
             <iframe
                 id="instantroofer-iframe"
                 title="Instant Roofer Booking Engine"
-                src="https://book.instantroofer.com?id=$accountId"
+                src="https://book.instantroofer.com?$$iframeQueryString"
                 width="{$ir_atts['width']}px"
                 height="{$ir_atts['height']}px"
             ></iframe>
             <p><a href="https://instantroofer.com">$anchorText</a></p>
-            <h5>You chose {$generalOpts['instantroofer_field_font_family']}.</h5>
         </div>
 STR;
 }
