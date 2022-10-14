@@ -145,7 +145,6 @@ function instantroofer_section_developers_callback($args)
  */
 function instantroofer_field_font_family_cb($args)
 {
-    // Get the value of the setting we've registered with register_setting()
     $options = get_option('instantroofer_options');
     $escLabel = esc_attr($args['label_for']);
     echo <<<STR
@@ -174,7 +173,6 @@ STR;
  */
 function instantroofer_field_account_id_cb()
 {
-    // Get the value of the setting we've registered with register_setting()
     $options = get_option('instantroofer_options');
     $value = $options['instantroofer_field_account_id'];
     echo <<<STR
@@ -196,7 +194,6 @@ STR;
  */
 function instantroofer_field_width_cb()
 {
-    // Get the value of the setting we've registered with register_setting()
     $options = get_option('instantroofer_options');
     $value = $options['instantroofer_field_width'];
     echo <<<STR
@@ -217,7 +214,6 @@ STR;
  */
 function instantroofer_field_height_cb()
 {
-    // Get the value of the setting we've registered with register_setting()
     $options = get_option('instantroofer_options');
     $value = $options['instantroofer_field_height'];
     echo <<<STR
@@ -227,6 +223,26 @@ function instantroofer_field_height_cb()
             id="instantroofer_field_height"
             value="$value"
             size="4"
+    >
+STR;
+}
+
+/**
+ * Height field callback function.
+ *
+ * @param array $args
+ */
+function instantroofer_field_font_color_cb()
+{
+    $options = get_option('instantroofer_options');
+    $value = $options['instantroofer_field_font_color'];
+    echo <<<STR
+    <input
+        type="text"
+        name="instantroofer_options[instantroofer_field_font_color]"
+        id="instantroofer_field_font_color"
+        value="$value"
+        size="9"
     >
 STR;
 }
@@ -250,6 +266,17 @@ function instantroofer_options_page()
  * Register our instantroofer_options_page to the admin_menu action hook.
  */
 add_action('admin_menu', 'instantroofer_options_page');
+
+/**
+ * Make color-script.js file declare wp-color-picker as a dependency
+ * so we can use the wpColorPicker jQuery method inside it:
+ */
+add_action( 'admin_enqueue_scripts', 'mw_enqueue_color_picker' );
+function mw_enqueue_color_picker( $hook_suffix ) {
+// first check that $hook_suffix is appropriate for your admin page
+    wp_enqueue_style( 'wp-color-picker' );
+    wp_enqueue_script( 'color-script-handle', plugins_url('js/color-script.js', __FILE__ ), array( 'wp-color-picker' ), false, true );
+}
 
 
 /**

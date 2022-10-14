@@ -32,7 +32,7 @@ function get_anchor_text($id) {
 }
 
 function callback_for_setting_up_scripts() {
-    wp_register_style( 'instantroofer', plugins_url('style.css', __FILE__) );
+    wp_register_style( 'instantroofer', plugins_url('styles/style.css', __FILE__) );
     wp_enqueue_style( 'instantroofer' );
 }
 
