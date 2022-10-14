@@ -182,7 +182,8 @@ function instantroofer_field_account_id_cb()
             name="instantroofer_options[instantroofer_field_account_id]"
             id="instantroofer_field_account_id"
             value="$value"
-            size="36"
+            size="38"
+            maxlength="36"
     >
 STR;
 }
