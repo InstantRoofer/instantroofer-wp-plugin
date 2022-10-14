@@ -2,7 +2,7 @@ const colorPickerFields = {
     instantroofer_field_font_color: {
         // you can declare a default color here,
         // or in the data-default-color attribute on the input
-        defaultColor: '#000000',
+        defaultColor: 'black',
         // a callback to fire whenever the color changes to a valid color
         change: function (event, ui) {
         },
