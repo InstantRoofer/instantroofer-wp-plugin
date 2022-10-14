@@ -19,6 +19,9 @@ const colorPickerFields = {
 
 jQuery(document).ready(function($){
     for(const fieldId in colorPickerFields) {
-        $(`#${fieldId}`).wpColorPicker(colorPickerFields[fieldId]);
+        const input = $(`#${fieldId}`)
+        const options = colorPickerFields[fieldId]
+        input.wpColorPicker(options);
+        if(input.val().length === 0) input.val(input.val() + options.defaultColor)
     }
 });
