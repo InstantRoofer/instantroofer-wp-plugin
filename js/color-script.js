@@ -18,7 +18,6 @@ const colorPickerFields = {
 }
 
 jQuery(document).ready(function($) {
-    return
     for(const fieldId in colorPickerFields) {
         const input = $(`#${fieldId}`)
         const colorButton = $(input).parent('.wp-picker-container').find('.wp-color-result.button')
