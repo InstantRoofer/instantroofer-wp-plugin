@@ -95,6 +95,14 @@ function instantroofer_settings_init()
     );
 
     add_settings_field(
+        'instantroofer_field_font_color',
+        __('Height', 'general'),
+        'instantroofer_field_font_color_cb',
+        'general',
+        'instantroofer_section_developers'
+    );
+
+    add_settings_field(
         'instantroofer_field_font_family', // As of WP 4.6 this value is used only internally.
         // Use $args' label_for to populate the id inside the callback.
         __('Font', 'general'),
@@ -149,9 +157,9 @@ function instantroofer_field_font_family_cb($args)
     $escLabel = esc_attr($args['label_for']);
     echo <<<STR
     <select
-            id="{$args['label_for']}"
-            data-custom="{$args['instantroofer_custom_data']}"
-            name="instantroofer_options[$escLabel"
+        id="{$args['label_for']}"
+        data-custom="{$args['instantroofer_custom_data']}"
+        name="instantroofer_options[$escLabel"
     >
 STR;
     foreach (FONT_FAMILIES as $stack) {
@@ -177,12 +185,12 @@ function instantroofer_field_account_id_cb()
     $value = $options['instantroofer_field_account_id'];
     echo <<<STR
     <input
-            type="text"
-            name="instantroofer_options[instantroofer_field_account_id]"
-            id="instantroofer_field_account_id"
-            value="$value"
-            size="38"
-            maxlength="36"
+        type="text"
+        name="instantroofer_options[instantroofer_field_account_id]"
+        id="instantroofer_field_account_id"
+        value="$value"
+        size="38"
+        maxlength="36"
     >
 STR;
 }
@@ -198,11 +206,11 @@ function instantroofer_field_width_cb()
     $value = $options['instantroofer_field_width'];
     echo <<<STR
     <input
-            type="text"
-            name="instantroofer_options[instantroofer_field_width]"
-            id="instantroofer_field_width"
-            value="$value"
-            size="4"
+        type="text"
+        name="instantroofer_options[instantroofer_field_width]"
+        id="instantroofer_field_width"
+        value="$value"
+        size="4"
     >
 STR;
 }
@@ -218,11 +226,11 @@ function instantroofer_field_height_cb()
     $value = $options['instantroofer_field_height'];
     echo <<<STR
     <input
-            type="text"
-            name="instantroofer_options[instantroofer_field_height]"
-            id="instantroofer_field_height"
-            value="$value"
-            size="4"
+        type="text"
+        name="instantroofer_options[instantroofer_field_height]"
+        id="instantroofer_field_height"
+        value="$value"
+        size="4"
     >
 STR;
 }
