@@ -14,8 +14,6 @@
 * Domain Path:       /languages
 */
 
-require_once('custom-settings-page.php');
-
 const uuidv4Pattern = "/[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-(:?8|9|A|B)[a-f0-9]{3}-[a-f0-9]{12}/i";
 
 const ANCHORS = [
@@ -108,3 +106,6 @@ function instantroofer_shortcodes_init() {
 
 add_action('wp_enqueue_scripts', 'callback_for_setting_up_scripts');
 add_action( 'init', 'instantroofer_shortcodes_init' );
+
+
+require_once('custom-settings-page.php');
