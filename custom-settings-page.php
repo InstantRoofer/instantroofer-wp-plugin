@@ -46,7 +46,7 @@ const FONT_FAMILY_RGX = "/^[a-z, ]+$/i";
 
 function sanitize_settings($input) {
     return array(
-        'instantroofer_field_account_id' => preg_match(UUID_RGX, $input['instantroofer_field_account_id']) === 1 ? $input['instantroofer_field_account_id'] : '',
+        'instantroofer_field_account_id' => preg_match(UUID_RGX, $input['instantroofer_field_account_id']) === 1 ? $input['instantroofer_field_account_id'] : $input['instantroofer_field_account_id'],
         'instantroofer_field_font_family' =>preg_match(FONT_FAMILY_RGX, $input['instantroofer_field_font_family']) === 1 ? $input['instantroofer_field_font_family'] : '',
     );
 }
@@ -151,7 +151,7 @@ STR;
  *
  * @param array $args
  */
-function instantroofer_field_account_id_cb( $args ) {
+function instantroofer_field_account_id_cb() {
     // Get the value of the setting we've registered with register_setting()
     $options = get_option( 'instantroofer_options' );
     $value = $options['instantroofer_field_account_id'];
