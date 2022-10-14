@@ -69,18 +69,13 @@ function instantroofer_settings_init()
         'general'
     );
 
+    // Register a new field in the "instantroofer_section_developers" section, inside the "general" page.
     add_settings_field(
-        'instantroofer_field_font_family', // As of WP 4.6 this value is used only internally.
-        // Use $args' label_for to populate the id inside the callback.
-        __('Font', 'general'),
-        'instantroofer_field_font_family_cb',
+        'instantroofer_field_account_id',
+        __( 'Account ID', 'general' ),
+        'instantroofer_field_account_id_cb',
         'general',
-        'instantroofer_section_developers',
-        array(
-            'label_for' => 'instantroofer_field_font_family',
-            'class' => 'instantroofer_row',
-            'instantroofer_custom_data' => 'custom',
-        )
+        'instantroofer_section_developers'
     );
 
     add_settings_field(
@@ -97,6 +92,20 @@ function instantroofer_settings_init()
         'instantroofer_field_height_cb',
         'general',
         'instantroofer_section_developers'
+    );
+
+    add_settings_field(
+        'instantroofer_field_font_family', // As of WP 4.6 this value is used only internally.
+        // Use $args' label_for to populate the id inside the callback.
+        __('Font', 'general'),
+        'instantroofer_field_font_family_cb',
+        'general',
+        'instantroofer_section_developers',
+        array(
+            'label_for' => 'instantroofer_field_font_family',
+            'class' => 'instantroofer_row',
+            'instantroofer_custom_data' => 'custom',
+        )
     );
 }
 
