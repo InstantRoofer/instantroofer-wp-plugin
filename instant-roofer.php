@@ -54,8 +54,10 @@ function instantroofer_shortcode() {
 STR;
     }
     $anchorText = get_anchor_text($accountId);
-    $widthAttr = $settings['width'].'px';
-    $heightAttr = $settings['height'].'px';
+    $width = $settings['instantroofer_field_width'];
+    $widthAttr = $width.'px';
+    $height = $settings['instantroofer_field_height'];
+    $heightAttr = $height.'px';
     $spinnerUrl = plugins_url('assets/Iphone-spinner-2.gif', __FILE__);
 
     $iframeQueryStringVals = array(
