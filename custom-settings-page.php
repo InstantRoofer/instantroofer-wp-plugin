@@ -14,7 +14,8 @@ function instantroofer_settings_init() {
     // Register a new section in the "general" page.
     add_settings_section(
         'instantroofer_section_developers',
-        __( 'The Matrix has you.', 'general' ), 'instantroofer_section_developers_callback',
+        __( 'The Matrix has you.', 'general' ),
+        'instantroofer_section_developers_callback',
         'general'
     );
 

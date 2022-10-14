@@ -79,7 +79,7 @@ STR;
 
     $spinnerUrl = plugins_url('assets/Iphone-spinner-2.gif', __FILE__);
 
-    $pill = get_option('instantroofer_field_pill');
+    $generalOpts = get_option('instantroofer_options');
 
 	return <<<STR
         <div
@@ -94,7 +94,7 @@ STR;
                 height="{$ir_atts['height']}px"
             ></iframe>
             <p><a href="https://instantroofer.com">$anchorText</a></p>
-            <h5>You chose $pill.</h5>
+            <h5>You chose {$generalOpts['instantroofer_field_pill']}.</h5>
         </div>
 STR;
 }
