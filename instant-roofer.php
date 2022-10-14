@@ -77,7 +77,7 @@ STR;
 
     $spinnerUrl = plugins_url('assets/Iphone-spinner-2.gif', __FILE__);
 
-    $pill = get_option('instantroofer_field_pill');
+    $pill = get_option('pill');
 
 	return <<<STR
         <div
