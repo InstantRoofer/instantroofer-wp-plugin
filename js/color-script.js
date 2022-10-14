@@ -20,11 +20,11 @@ const colorPickerFields = {
 jQuery(document).ready(function($){
     for(const fieldId in colorPickerFields) {
         const input = $(`#${fieldId}`)
-        const colorButton = $(input).parent('.wp-picker-container').find('.wp-color-result.button').first()
+        const colorButton = input.parent('.wp-picker-container').find('.wp-color-result').first()
         const options = colorPickerFields[fieldId]
         input.wpColorPicker(options);
-        if($(input).val().length === 0) {
-            $(colorButton).css('background-color', options.defaultColor)
+        if(input.val().length === 0) {
+            colorButton.css({backgroundColor: options.defaultColor})
         }
     }
 });
