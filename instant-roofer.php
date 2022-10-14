@@ -77,7 +77,7 @@ STR;
                 title="Instant Roofer Booking Engine"
                 src="https://book.instantroofer.com?$$iframeQueryString"
                 width="$widthAttr"
-                height="$widthAttr"
+                height="$heightAttr"
             ></iframe>
             <p><a href="https://instantroofer.com">$anchorText</a></p>
         </div>
