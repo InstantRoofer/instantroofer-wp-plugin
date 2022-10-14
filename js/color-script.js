@@ -22,6 +22,7 @@ jQuery(document).ready(function($){
         const input = $(`#${fieldId}`)
         console.log('input id', input.attr('id'))
         const colorButton = input.parent('.wp-picker-container').find('.wp-color-result')
+        console.log('colorButton', colorButton)
         console.log('colorButton has class wp-color-result:', colorButton.hasClass('wp-color-result'))
         const options = colorPickerFields[fieldId]
         input.wpColorPicker(options);
