@@ -19,14 +19,12 @@ const colorPickerFields = {
 
 jQuery(document).ready(function($){
     for(const fieldId in colorPickerFields) {
-        alert('setting up '+ fieldId)
         const input = $(`#${fieldId}`)
-        // const colorButton = $(input).parent()
+        const colorButton = $(input).parent('.wp-picker-container').find('.wp-color-result.button')
         const options = colorPickerFields[fieldId]
         input.wpColorPicker(options);
         if($(input).val().length === 0) {
-            alert('no color assigned')
-            $(input).val(options.defaultColor)
+            $(colorButton).val(options.defaultColor)
         }
     }
 });
