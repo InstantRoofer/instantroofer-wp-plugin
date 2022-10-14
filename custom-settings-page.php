@@ -136,7 +136,7 @@ function instantroofer_field_font_family_cb( $args ) {
     >
         <?php
             foreach (FONT_FAMILIES as $stack) {
-                $stackName = explode($stack, ',')[0];
+                $stackName = explode(',', $stack)[0];
                 $selectedAttr = isset($options[$args['label_for']]) ? (selected($options[$args['label_for']], $stack, false)) : ('');
                 $label = esc_html_e($stackName, 'general');
                 echo <<<STR
@@ -145,12 +145,6 @@ STR;
             }
         ?>
     </select>
-    <p class="description">
-        <?php esc_html_e( 'You take the blue font_family and the story ends. You wake in your bed and you believe whatever you want to believe.', 'general' ); ?>
-    </p>
-    <p class="description">
-        <?php esc_html_e( 'You take the red font_family and you stay in Wonderland and I show you how deep the rabbit-hole goes.', 'general' ); ?>
-    </p>
     <?php
 }
 
