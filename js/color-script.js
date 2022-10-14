@@ -24,9 +24,10 @@ jQuery(document).ready(function($){
         const colorButton = $(input).parent('.wp-picker-container').find('.wp-color-result.button')
         const options = colorPickerFields[fieldId]
         input.wpColorPicker(options);
+        console.log('input val', $(input).val())
         if($(input).val().length === 0) {
             console.log('setting default color to ', options.defaultColor)
-            // $(input).val(options.defaultColor)
+            $(input).val(options.defaultColor)
         }
     }
 });
