@@ -8,23 +8,23 @@
  * custom option and settings
  */
 function instantroofer_settings_init() {
-    // Register a new setting for "instantroofer" page.
-    register_setting( 'instantroofer', 'instantroofer_options' );
+    // Register a new setting for "general" page.
+    register_setting( 'general', 'instantroofer_options' );
 
-    // Register a new section in the "instantroofer" page.
+    // Register a new section in the "general" page.
     add_settings_section(
         'instantroofer_section_developers',
-        __( 'The Matrix has you.', 'instantroofer' ), 'instantroofer_section_developers_callback',
-        'instantroofer'
+        __( 'The Matrix has you.', 'general' ), 'instantroofer_section_developers_callback',
+        'general'
     );
 
-    // Register a new field in the "instantroofer_section_developers" section, inside the "instantroofer" page.
+    // Register a new field in the "instantroofer_section_developers" section, inside the "general" page.
     add_settings_field(
         'instantroofer_field_pill', // As of WP 4.6 this value is used only internally.
         // Use $args' label_for to populate the id inside the callback.
-        __( 'Pill', 'instantroofer' ),
+        __( 'Pill', 'general' ),
         'instantroofer_field_pill_cb',
-        'instantroofer',
+        'general',
         'instantroofer_section_developers',
         array(
             'label_for'         => 'instantroofer_field_pill',
@@ -53,12 +53,12 @@ add_action( 'admin_init', 'instantroofer_settings_init' );
  */
 function instantroofer_section_developers_callback( $args ) {
     ?>
-    <p id="<?php echo esc_attr( $args['id'] ); ?>"><?php esc_html_e( 'Follow the white rabbit.', 'instantroofer' ); ?></p>
+    <p id="<?php echo esc_attr( $args['id'] ); ?>"><?php esc_html_e( 'Follow the white rabbit.', 'general' ); ?></p>
     <?php
 }
 
 /**
- * Pill field callbakc function.
+ * Pill field callback function.
  *
  * WordPress has magic interaction with the following keys: label_for, class.
  * - the "label_for" key value is used for the "for" attribute of the <label>.
@@ -72,21 +72,21 @@ function instantroofer_field_pill_cb( $args ) {
     $options = get_option( 'instantroofer_options' );
     ?>
     <select
-        id="<?php echo esc_attr( $args['label_for'] ); ?>"
-        data-custom="<?php echo esc_attr( $args['instantroofer_custom_data'] ); ?>"
-        name="instantroofer_options[<?php echo esc_attr( $args['label_for'] ); ?>]">
+            id="<?php echo esc_attr( $args['label_for'] ); ?>"
+            data-custom="<?php echo esc_attr( $args['instantroofer_custom_data'] ); ?>"
+            name="instantroofer_options[<?php echo esc_attr( $args['label_for'] ); ?>]">
         <option value="red" <?php echo isset( $options[ $args['label_for'] ] ) ? ( selected( $options[ $args['label_for'] ], 'red', false ) ) : ( '' ); ?>>
-            <?php esc_html_e( 'red pill', 'instantroofer' ); ?>
+            <?php esc_html_e( 'red pill', 'general' ); ?>
         </option>
         <option value="blue" <?php echo isset( $options[ $args['label_for'] ] ) ? ( selected( $options[ $args['label_for'] ], 'blue', false ) ) : ( '' ); ?>>
-            <?php esc_html_e( 'blue pill', 'instantroofer' ); ?>
+            <?php esc_html_e( 'blue pill', 'general' ); ?>
         </option>
     </select>
     <p class="description">
-        <?php esc_html_e( 'You take the blue pill and the story ends. You wake in your bed and you believe whatever you want to believe.', 'instantroofer' ); ?>
+        <?php esc_html_e( 'You take the blue pill and the story ends. You wake in your bed and you believe whatever you want to believe.', 'general' ); ?>
     </p>
     <p class="description">
-        <?php esc_html_e( 'You take the red pill and you stay in Wonderland and I show you how deep the rabbit-hole goes.', 'instantroofer' ); ?>
+        <?php esc_html_e( 'You take the red pill and you stay in Wonderland and I show you how deep the rabbit-hole goes.', 'general' ); ?>
     </p>
     <?php
 }
@@ -99,7 +99,7 @@ function instantroofer_options_page() {
         'Instantroofer',
         'Instant Roofer Options',
         'manage_options',
-        'instantroofer',
+        'general',
         'instantroofer_options_page_html'
     );
 }
@@ -126,7 +126,7 @@ function instantroofer_options_page_html() {
     // WordPress will add the "settings-updated" $_GET parameter to the url
     if ( isset( $_GET['settings-updated'] ) ) {
         // add settings saved message with the class of "updated"
-        add_settings_error( 'instantroofer_messages', 'instantroofer_message', __( 'Settings Saved', 'instantroofer' ), 'updated' );
+        add_settings_error( 'instantroofer_messages', 'instantroofer_message', __( 'Settings Saved', 'general' ), 'updated' );
     }
 
     // show error/update messages
@@ -136,11 +136,11 @@ function instantroofer_options_page_html() {
         <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
         <form action="options.php" method="post">
             <?php
-            // output security fields for the registered setting "instantroofer"
-            settings_fields( 'instantroofer' );
+            // output security fields for the registered setting "general"
+            settings_fields( 'general' );
             // output setting sections and their fields
-            // (sections are registered for "instantroofer", each field is registered to a specific section)
-            do_settings_sections( 'instantroofer' );
+            // (sections are registered for "general", each field is registered to a specific section)
+            do_settings_sections( 'general' );
             // output save settings button
             submit_button( 'Save Settings' );
             ?>
