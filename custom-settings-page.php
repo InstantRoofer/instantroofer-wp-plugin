@@ -96,8 +96,8 @@ function instantroofer_field_pill_cb( $args ) {
  */
 function instantroofer_options_page() {
     add_menu_page(
-        'instantroofer',
-        'instantroofer Options',
+        'Instantroofer',
+        'Instant Roofer Options',
         'manage_options',
         'instantroofer',
         'instantroofer_options_page_html'
