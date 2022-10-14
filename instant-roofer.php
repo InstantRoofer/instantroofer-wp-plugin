@@ -94,7 +94,7 @@ STR;
                 height="{$ir_atts['height']}px"
             ></iframe>
             <p><a href="https://instantroofer.com">$anchorText</a></p>
-            <h5>You chose {$generalOpts['instantroofer_field_pill']}.</h5>
+            <h5>You chose {$generalOpts['instantroofer_field_font_family']}.</h5>
         </div>
 STR;
 }

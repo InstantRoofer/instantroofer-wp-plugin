@@ -39,29 +39,6 @@ const FONT_FAMILIES = [
 ];
 
 /**
- * Return a select option tag like this:
- *
- *
-<option value="red" <?php echo isset( $options[ $args['label_for'] ] ) ? ( selected( $options[ $args['label_for'] ], 'red', false ) ) : ( '' ); ?>>
-<?php esc_html_e( 'red font_family', 'general' ); ?>
-</option>
- *
- * @param $options
- * @param $args
- * @param $stack
- * @return string
- */
-function getFontOption($options, $args, $stack) {
-    $stackName = explode($stack, ',')[0];
-    $selectedAttr = isset( $options[ $args['label_for'] ] ) ? ( selected( $options[ $args['label_for'] ], $stack, false ) ) : ( '' );
-    $label = esc_html_e( $stackName, 'general' );
-    return <<<STR
-        <option value="$stack" $selectedAttr> $label </option>
-STR;
-
-}
-
-/**
  * custom option and settings
  */
 function instantroofer_settings_init() {
