@@ -249,7 +249,7 @@ function instantroofer_field_font_color_cb()
         type="text"
         name="instantroofer_options[instantroofer_field_font_color]"
         id="instantroofer_field_font_color"
-        value="$value"
+        value=""
         size="9"
     >
 STR;
