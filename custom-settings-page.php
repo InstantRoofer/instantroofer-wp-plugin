@@ -6,7 +6,7 @@
 
 function getFontFamilies() {
     $json = file_get_contents(plugins_url('config/fonts.json', __FILE__));
-    return json_decode($json);
+    return json_decode($json, true);
 }
 
 /**
