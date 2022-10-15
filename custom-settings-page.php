@@ -4,51 +4,22 @@
  * these functions could be run multiple times; this would result in a fatal error.
  */
 
-const FONT_FAMILIES = [
-    'Arial, Helvetica Neue, Helvetica, sans-serif',
-    'Baskerville, Baskerville Old Face, Garamond, Times New Roman, serif',
-    'Bodoni MT, Bodoni 72, Didot, Didot LT STD, Hoefler Text, Garamond, Times New Roman, serif',
-    'Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif',
-    'Calisto MT, Bookman Old Style, Bookman, Goudy Old Style, Garamond, Hoefler Text, Bitstream Charter, Georgia, serif',
-    'Cambria, Georgia, serif',
-    'Candara, Calibri, Segoe, Segoe UI, Optima, Arial, sans-serif',
-    'Century Gothic, CenturyGothic, AppleGothic, sans-serif',
-    'Consolas, monaco, monospace',
-    'Copperplate, Copperplate Gothic Light, fantasy',
-    'Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter, monospace',
-    'Dejavu Sans, Arial, Verdana, sans-serif',
-    'Didot, Didot LT STD, Hoefler Text, Garamond, Calisto MT, Times New Roman, serif',
-    'Franklin Gothic, Arial Bold',
-    'Garamond, Baskerville, Baskerville Old Face, Hoefler Text, Times New Roman, serif',
-    'Georgia, Times, Times New Roman, serif',
-    'Gill Sans, Gill Sans MT, Calibri, sans-serif',
-    'Goudy Old Style, Garamond, Big Caslon, Times New Roman, serif',
-    'Helvetica Neue, Helvetica, Arial, sans-serif',
-    'Impact, Charcoal, Helvetica Inserat, Bitstream Vera Sans Bold, Arial Black, sans serif',
-    'Lucida Bright, Georgia, serif',
-    'Lucida Sans, Helvetica, Arial, sans-serif',
-    'MS Sans Serif, sans-serif',
-    'Optima, Segoe, Segoe UI, Candara, Calibri, Arial, sans-serif',
-    'Palatino, Palatino Linotype, Palatino LT STD, Book Antiqua, Georgia, serif',
-    'Perpetua, Baskerville, Big Caslon, Palatino Linotype, Palatino, serif',
-    'Rockwell, Courier Bold, Courier, Georgia, Times, Times New Roman, serif',
-    'Segoe UI, Frutiger, Dejavu Sans, Helvetica Neue, Arial, sans-serif',
-    'Tahoma, Verdana, Segoe, sans-serif',
-    'Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, sans-serif',
-    'Verdana, Geneva, sans-serif',
-];
+function getFontFamilies() {
+    $json = file_get_contents(plugins_url('config/fonts.json', __FILE__));
+    return json_decode($json);
+}
+
+define("FONT_FAMILIES", getFontFamilies());
 
 const DEFAULTS = array(
     'instantroofer_field_account_id' => '',
     'instantroofer_field_width' => 640,
     'instantroofer_field_height' => 690,
-    'instantroofer_field_font_family' => FONT_FAMILIES[0],
+    'instantroofer_field_font_family' => 'arial',
     'instantroofer_field_font_color' => '#000000'
 );
 
 const UUID_RGX = "/[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-(:?8|9|A|B)[a-f0-9]{3}-[a-f0-9]{12}/i";
-
-const FONT_FAMILY_RGX = "/^[0-9a-zA-Z,- ]+$/";
 
 function sanitize_settings($input)
 {
@@ -56,13 +27,27 @@ function sanitize_settings($input)
         'instantroofer_field_account_id' => preg_match(UUID_RGX, $input['instantroofer_field_account_id']) === 1 ? $input['instantroofer_field_account_id'] : DEFAULTS['instantroofer_field_account_id'],
         'instantroofer_field_width' => (int)$input['instantroofer_field_width'] > 0 ? $input['instantroofer_field_width'] : DEFAULTS['instantroofer_field_width'],
         'instantroofer_field_height' => (int)$input['instantroofer_field_height'] > 0 ? $input['instantroofer_field_height'] : DEFAULTS['instantroofer_field_height'],
-        'instantroofer_field_font_family' => preg_match(FONT_FAMILY_RGX, $input['instantroofer_field_font_family']) > 0 ? $input['instantroofer_field_font_family'] : DEFAULTS['instantroofer_field_font_family'],
+        'instantroofer_field_font_family' => isset(FONT_FAMILIES[$input['instantroofer_field_font_family']]) ? $input['instantroofer_field_font_family'] : DEFAULTS['instantroofer_field_font_family'],
         'instantroofer_field_font_color' => $input['instantroofer_field_font_color'] ?: DEFAULTS['instantroofer_field_font_color'],
     );
 }
 
-function addField($id, $label) {
-
+/**
+ * Register a new field in the "instantroofer_section_developers" section, inside the "general" page.
+ *
+ * @param string $id
+ * @param string $idSuffix The part after "instantroofer_field_"
+ * @return void
+ */
+function addField($idSuffix, $label) {
+    $id = "instantroofer_field_{$idSuffix}";
+    add_settings_field(
+        $id,
+        __($label, 'general'),
+        "{$id}_cb",
+        'general',
+        'instantroofer_section_developers'
+    );
 }
 
 /**
@@ -81,14 +66,7 @@ function instantroofer_settings_init()
         'general'
     );
 
-    // Register a new field in the "instantroofer_section_developers" section, inside the "general" page.
-    add_settings_field(
-        'instantroofer_field_account_id',
-        __('Account ID', 'general'),
-        'instantroofer_field_account_id_cb',
-        'general',
-        'instantroofer_section_developers'
-    );
+    addField('account_id', 'Account ID');
 
     add_settings_field(
         'instantroofer_field_width',
@@ -154,40 +132,6 @@ function instantroofer_section_developers_callback($args)
 }
 
 /**
- * Font_family field callback function.
- *
- * WordPress has magic interaction with the following keys: label_for, class.
- * - the "label_for" key value is used for the "for" attribute of the <label>.
- * - the "class" key value is used for the "class" attribute of the <tr> containing the field.
- * Note: you can add custom key value pairs to be used inside your callbacks.
- *
- * @param array $args
- */
-function instantroofer_field_font_family_cb($args)
-{
-    $options = get_option('instantroofer_options');
-    $escLabel = esc_attr($args['label_for']);
-    echo <<<STR
-    <select
-        id="{$args['label_for']}"
-        data-custom="{$args['instantroofer_custom_data']}"
-        name="instantroofer_options[$escLabel]"
-    >
-STR;
-    foreach (FONT_FAMILIES as $stack) {
-        $stackName = explode(',', $stack)[0];
-        $value = $options[$args['label_for']];
-        $selectedAttr = isset($value) ? (selected($value, $stack, false)) : ('');
-        echo <<<STR
-        <option value="$stack" $selectedAttr>$stackName</option>
-STR;
-    }
-    echo <<<STR
-    </select>
-STR;
-}
-
-/**
  * Account ID field callback function.
  */
 function instantroofer_field_account_id_cb()
@@ -239,6 +183,40 @@ function instantroofer_field_height_cb()
         value="$value"
         size="4"
     >
+STR;
+}
+
+/**
+ * Font_family field callback function.
+ *
+ * WordPress has magic interaction with the following keys: label_for, class.
+ * - the "label_for" key value is used for the "for" attribute of the <label>.
+ * - the "class" key value is used for the "class" attribute of the <tr> containing the field.
+ * Note: you can add custom key value pairs to be used inside your callbacks.
+ *
+ * @param array $args
+ */
+function instantroofer_field_font_family_cb($args)
+{
+    $options = get_option('instantroofer_options');
+    $escLabel = esc_attr($args['label_for']);
+    echo <<<STR
+    <select
+        id="{$args['label_for']}"
+        data-custom="{$args['instantroofer_custom_data']}"
+        name="instantroofer_options[$escLabel]"
+    >
+STR;
+    foreach (FONT_FAMILIES as $id => $stack) {
+        $stackName = explode(',', $stack)[0];
+        $value = $options[$args['label_for']];
+        $selectedAttr = isset($value) ? (selected($value, $id, false)) : ('');
+        echo <<<STR
+        <option value="$id" $selectedAttr>$stackName</option>
+STR;
+    }
+    echo <<<STR
+    </select>
 STR;
 }
 
