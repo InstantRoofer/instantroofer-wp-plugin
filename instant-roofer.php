@@ -48,6 +48,8 @@ function instantroofer_shortcode() {
 
     $accountId = $settings['instantroofer_field_account_id'];
 
+    return 'debugging';
+
     if(!$accountId) {
         return <<<STR
             <p>Your Instant Roofer account ID is missing or invalid in the plugin settings.</p>
