@@ -26,7 +26,7 @@ jQuery(document).ready(function($){
         // Set color of button to black if none selected ever:
         const colorButton = input.parents('div.wp-picker-container').first().find('button.wp-color-result').first();
         console.log('hasClass', colorButton.hasClass('wp-color-result'))
-        if(input.val().length === 0) {
+        if(!CSS.supports('color',input.val())) {
             colorButton.css({backgroundColor: options.defaultColor});
         }
     }
