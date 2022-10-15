@@ -40,7 +40,7 @@ const FONT_FAMILIES = [
 
 const DEFAULTS = array(
     'instantroofer_field_account_id' => '',
-    'instantroofer_field_font_family' => 'Arial, Helvetica Neue, Helvetica, sans-serif',
+    'instantroofer_field_font_family' => FONT_FAMILIES[0],
     'instantroofer_field_width' => 640,
     'instantroofer_field_height' => 690,
     'instantroofer_field_font_color' => '#000000'
@@ -171,7 +171,7 @@ function instantroofer_field_font_family_cb($args)
     >
 STR;
     foreach (FONT_FAMILIES as $stack) {
-        $stackName = explode(',', $stack)[0];
+        $stackName = trim(explode(',', $stack)[0]);
         $selectedAttr = isset($options[$args['label_for']]) ? (selected($options[$args['label_for']], $stack, false)) : ('');
         echo <<<STR
         <option value="$stack" $selectedAttr>$stackName</option>
