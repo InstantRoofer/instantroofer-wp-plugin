@@ -56,7 +56,7 @@ function sanitize_settings($input)
         'instantroofer_field_account_id' => preg_match(UUID_RGX, $input['instantroofer_field_account_id']) === 1 ? $input['instantroofer_field_account_id'] : DEFAULTS['instantroofer_field_account_id'],
         'instantroofer_field_font_family' => preg_match(FONT_FAMILY_RGX, $input['instantroofer_field_font_family']) === 1 ? $input['instantroofer_field_font_family'] : DEFAULTS['instantroofer_field_font_family'],
         'instantroofer_field_width' => (int)$input['instantroofer_field_width'] > 0 ? $input['instantroofer_field_width'] : DEFAULTS['instantroofer_field_width'],
-        'instantroofer_field_height' => (int)$input['instantroofer_field_height'] > 0 ? $input['instantroofer_field_height'] :   DEFAULTS['instantroofer_field_height'],
+        'instantroofer_field_height' => (int)$input['instantroofer_field_height'] > 0 ? $input['instantroofer_field_height'] : DEFAULTS['instantroofer_field_height'],
         'instantroofer_field_font_color' => $input['instantroofer_field_font_color'] || DEFAULTS['instantroofer_field_font_color']
     );
 }
@@ -80,7 +80,7 @@ function instantroofer_settings_init()
     // Register a new field in the "instantroofer_section_developers" section, inside the "general" page.
     add_settings_field(
         'instantroofer_field_account_id',
-        __( 'Account ID', 'general' ),
+        __('Account ID', 'general'),
         'instantroofer_field_account_id_cb',
         'general',
         'instantroofer_section_developers'
@@ -279,11 +279,12 @@ add_action('admin_menu', 'instantroofer_options_page');
  * Make color-script.js file declare wp-color-picker as a dependency
  * so we can use the wpColorPicker jQuery method inside it:
  */
-add_action( 'admin_enqueue_scripts', 'mw_enqueue_color_picker' );
-function mw_enqueue_color_picker( $hook_suffix ) {
+add_action('admin_enqueue_scripts', 'mw_enqueue_color_picker');
+function mw_enqueue_color_picker($hook_suffix)
+{
 // first check that $hook_suffix is appropriate for your admin page
-    wp_enqueue_style( 'wp-color-picker' );
-    wp_enqueue_script( 'color-script-handle', plugins_url('js/color-script.js', __FILE__ ), array( 'wp-color-picker' ), '1.0.18', true );
+    wp_enqueue_style('wp-color-picker');
+    wp_enqueue_script('color-script-handle', plugins_url('js/color-script.js', __FILE__), array('wp-color-picker'), '1.0.18', true);
 }
 
 
