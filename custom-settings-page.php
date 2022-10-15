@@ -4,6 +4,10 @@
  * these functions could be run multiple times; this would result in a fatal error.
  */
 
+/**
+ * Latest
+ */
+
 const FONT_FAMILIES = [
     'Arial, Helvetica Neue, Helvetica, sans-serif',
     'Baskerville, Baskerville Old Face, Garamond, Times New Roman, serif',
@@ -38,6 +42,13 @@ const FONT_FAMILIES = [
     'Verdana, Geneva, sans-serif',
 ];
 
+const DEFAULTS = array(
+    'instantroofer_field_account_id' => '',
+    'instantroofer_field_font_family' => FONT_FAMILIES[0],
+    'instantroofer_field_width' => 640,
+    'instantroofer_field_height' => 690,
+    'instantroofer_field_font_color' => '#000000'
+);
 
 const UUID_RGX = "/[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-(:?8|9|A|B)[a-f0-9]{3}-[a-f0-9]{12}/i";
 
@@ -46,11 +57,11 @@ const FONT_FAMILY_RGX = "/^[a-z,- ]+$/i";
 function sanitize_settings($input)
 {
     return array(
-        'instantroofer_field_account_id' => preg_match(UUID_RGX, $input['instantroofer_field_account_id']) === 1 ? $input['instantroofer_field_account_id'] : $input['instantroofer_field_account_id'],
-        'instantroofer_field_font_family' => preg_match(FONT_FAMILY_RGX, $input['instantroofer_field_font_family']) === 1 ? $input['instantroofer_field_font_family'] : $input['instantroofer_field_font_family'],
-        'instantroofer_field_width' => (int)$input['instantroofer_field_width'] > 0 ? $input['instantroofer_field_width'] : 640,
-        'instantroofer_field_height' => (int)$input['instantroofer_field_height'] > 0 ? $input['instantroofer_field_height'] : 690,
-        'instantroofer_field_font_color' => $input['instantroofer_field_font_color']
+        'instantroofer_field_account_id' => preg_match(UUID_RGX, $input['instantroofer_field_account_id']) === 1 ? $input['instantroofer_field_account_id'] : DEFAULTS['instantroofer_field_account_id'],
+        'instantroofer_field_font_family' => preg_match(FONT_FAMILY_RGX, $input['instantroofer_field_font_family']) === 1 ? $input['instantroofer_field_font_family'] : DEFAULTS['instantroofer_field_font_family'],
+        'instantroofer_field_width' => (int)$input['instantroofer_field_width'] > 0 ? $input['instantroofer_field_width'] : DEFAULTS['instantroofer_field_width'],
+        'instantroofer_field_height' => (int)$input['instantroofer_field_height'] > 0 ? $input['instantroofer_field_height'] : DEFAULTS['instantroofer_field_height'],
+        'instantroofer_field_font_color' => $input['instantroofer_field_font_color'] || DEFAULTS['instantroofer_field_font_color'],
     );
 }
 
@@ -73,7 +84,7 @@ function instantroofer_settings_init()
     // Register a new field in the "instantroofer_section_developers" section, inside the "general" page.
     add_settings_field(
         'instantroofer_field_account_id',
-        __( 'Account ID', 'general' ),
+        __('Account ID', 'general'),
         'instantroofer_field_account_id_cb',
         'general',
         'instantroofer_section_developers'
@@ -246,7 +257,6 @@ function instantroofer_field_font_color_cb()
         size="9"
     >
 STR;
-    echo 'value = '.$value;
 }
 
 /**
@@ -273,11 +283,12 @@ add_action('admin_menu', 'instantroofer_options_page');
  * Make color-script.js file declare wp-color-picker as a dependency
  * so we can use the wpColorPicker jQuery method inside it:
  */
-add_action( 'admin_enqueue_scripts', 'mw_enqueue_color_picker' );
-function mw_enqueue_color_picker( $hook_suffix ) {
+add_action('admin_enqueue_scripts', 'mw_enqueue_color_picker');
+function mw_enqueue_color_picker($hook_suffix)
+{
 // first check that $hook_suffix is appropriate for your admin page
-    wp_enqueue_style( 'wp-color-picker' );
-    wp_enqueue_script( 'color-script-handle', plugins_url('js/color-script.js', __FILE__ ), array( 'wp-color-picker' ), '1.0.16', true );
+    wp_enqueue_style('wp-color-picker');
+    wp_enqueue_script('color-script-handle', plugins_url('js/color-script.js', __FILE__), array('wp-color-picker'), '1.0.18', true);
 }
 
 
@@ -318,5 +329,4 @@ function instantroofer_options_page_html()
         </form>
     </div>
     <?php
-    var_dump(get_option('instantroofer_options'));
 }
