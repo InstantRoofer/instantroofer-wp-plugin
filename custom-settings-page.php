@@ -47,7 +47,7 @@ function sanitize_settings($input)
 {
     return array(
         'instantroofer_field_account_id' => preg_match(UUID_RGX, $input['instantroofer_field_account_id']) === 1 ? $input['instantroofer_field_account_id'] : $input['instantroofer_field_account_id'],
-        'instantroofer_field_font_family' => preg_match(FONT_FAMILY_RGX, $input['instantroofer_field_font_family']) === 1 ? $input['instantroofer_field_font_family'] : '',
+        'instantroofer_field_font_family' => preg_match(FONT_FAMILY_RGX, $input['instantroofer_field_font_family']) === 1 ? $input['instantroofer_field_font_family'] : $input['instantroofer_field_font_family'],
         'instantroofer_field_width' => (int)$input['instantroofer_field_width'] > 0 ? $input['instantroofer_field_width'] : 640,
         'instantroofer_field_height' => (int)$input['instantroofer_field_height'] > 0 ? $input['instantroofer_field_height'] : 690,
         'instantroofer_field_font_color' => $input['instantroofer_field_font_color']
