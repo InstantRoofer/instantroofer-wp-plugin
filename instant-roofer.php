@@ -66,6 +66,9 @@ STR;
         'height' => $settings['instantroofer_field_height'],
         'fontFamily' => $settings['instantroofer_field_font_family'],
         'fontColor' => $settings['instantroofer_field_font_color'],
+        'primaryColor' => $settings['instantroofer_field_primary_color'],
+        'secondaryColor' => $settings['instantroofer_field_secondary_color'],
+        'backgroundColor' => $settings['instantroofer_field_background_color'],
     );
 
     $iframeQueryString = http_build_query($iframeQueryStringVals);

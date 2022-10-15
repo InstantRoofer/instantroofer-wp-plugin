@@ -50,7 +50,10 @@ const DEFAULTS = array(
     'instantroofer_field_width' => 640,
     'instantroofer_field_height' => 690,
     'instantroofer_field_font_family' => 'arial',
-    'instantroofer_field_font_color' => '#000000'
+    'instantroofer_field_font_color' => '#000000',
+    'instantroofer_field_primary_color' => '#00FF00',
+    'instantroofer_field_secondary_color' => '#FF0000',
+    'instantroofer_field_background_color' => '#FFFFFF'
 );
 
 const UUID_RGX = "/[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-(:?8|9|A|B)[a-f0-9]{3}-[a-f0-9]{12}/i";
@@ -63,6 +66,9 @@ function sanitize_settings($input)
         'instantroofer_field_height' => (int)$input['instantroofer_field_height'] > 0 ? $input['instantroofer_field_height'] : DEFAULTS['instantroofer_field_height'],
         'instantroofer_field_font_family' => FONT_FAMILIES[$input['instantroofer_field_font_family']] ? $input['instantroofer_field_font_family'] : DEFAULTS['instantroofer_field_font_family'],
         'instantroofer_field_font_color' => $input['instantroofer_field_font_color'] ?: DEFAULTS['instantroofer_field_font_color'],
+        'instantroofer_field_primary_color' => $input['instantroofer_field_primary_color'] ?: DEFAULTS['instantroofer_field_primary_color'],
+        'instantroofer_field_secondary_color' => $input['instantroofer_field_secondary_color'] ?: DEFAULTS['instantroofer_field_secondary_color'],
+        'instantroofer_field_background_color' => $input['instantroofer_field_background_color'] ?: DEFAULTS['instantroofer_field_background_color'],
     );
 }
 
@@ -100,6 +106,7 @@ function instantroofer_settings_init()
     );
     addField('font_color', 'Font Color');
     addField('primary_color', 'Call-to-Action Color');
+    addField('secondary_color', 'Other UI Elements Color');
     addField('background_color', 'Background Color');
 
 
@@ -216,28 +223,24 @@ STR;
     echo '</select>';
 }
 
-/**
- * Font color field callback function.
- */
 function instantroofer_field_font_color_cb()
 {
     colorFieldCallback('font_color');
 }
 
-/**
- * Font color field callback function.
- */
 function instantroofer_field_background_color_cb()
 {
     colorFieldCallback('background_color');
 }
 
-/**
- * Font color field callback function.
- */
 function instantroofer_field_primary_color_cb()
 {
     colorFieldCallback('primary_color');
+}
+
+function instantroofer_field_secondary_color_cb()
+{
+    colorFieldCallback('secondary_color');
 }
 
 /**
