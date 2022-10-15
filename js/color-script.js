@@ -23,12 +23,10 @@ jQuery(document).ready(function($){
         const options = colorPickerFields[fieldId];
         input.wpColorPicker(options);
         console.log('input id', input.attr('id'));
-        setTimeout(() => {
-            const colorButton = input.parent('.wp-picker-container').find('.wp-color-result').first();
-            console.log('colorButton has class wp-color-result:', colorButton.hasClass('wp-color-result'));
-            if(input.val().length === 0) {
-                colorButton.css({backgroundColor: options.defaultColor});
-            }
-        }, 1000)
+        const colorButton = $(input).parent('div.wp-picker-container').find('button.wp-color-result').first();
+        console.log('colorButton has class wp-color-result:', colorButton.hasClass('wp-color-result'));
+        if(input.val().length === 0) {
+            colorButton.css({backgroundColor: options.defaultColor});
+        }
     }
 });
