@@ -24,7 +24,7 @@ jQuery(document).ready(function($){
         input.wpColorPicker(options);
         const colorButton = input.parents('div.wp-picker-container').first().find('button.wp-color-result').first();
         if(input.val().length === 0) {
-            //colorButton.css({backgroundColor: options.defaultColor});
+            colorButton.css({backgroundColor: options.defaultColor});
         }
     }
 });

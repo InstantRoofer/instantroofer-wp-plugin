@@ -246,7 +246,6 @@ function instantroofer_field_font_color_cb()
         size="9"
     >
 STR;
-    echo 'value = '.$value;
 }
 
 /**
