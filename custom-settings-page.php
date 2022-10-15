@@ -67,7 +67,7 @@ function sanitize_settings($input)
 function instantroofer_settings_init()
 {
     // Register a new setting for "general" page.
-    register_setting('general', 'instantroofer_options', 'sanitize_settings');
+    register_setting('general', 'instantroofer_options');
 
     // Register a new section in the "general" page.
     add_settings_section(
