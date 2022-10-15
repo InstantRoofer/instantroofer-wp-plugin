@@ -41,7 +41,7 @@ const FONT_FAMILIES = [
 
 const UUID_RGX = "/[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-(:?8|9|A|B)[a-f0-9]{3}-[a-f0-9]{12}/i";
 
-const FONT_FAMILY_RGX = "/^[a-z, ]+$/i";
+const FONT_FAMILY_RGX = "/^[a-z,- ]+$/i";
 
 function sanitize_settings($input)
 {
@@ -50,6 +50,7 @@ function sanitize_settings($input)
         'instantroofer_field_font_family' => preg_match(FONT_FAMILY_RGX, $input['instantroofer_field_font_family']) === 1 ? $input['instantroofer_field_font_family'] : '',
         'instantroofer_field_width' => (int)$input['instantroofer_field_width'] > 0 ? $input['instantroofer_field_width'] : 640,
         'instantroofer_field_height' => (int)$input['instantroofer_field_height'] > 0 ? $input['instantroofer_field_height'] : 690,
+        'instantroofer_field_font_color' => $input['instantroofer_field_font_color']
     );
 }
 
