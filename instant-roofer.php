@@ -14,7 +14,7 @@
 * Domain Path:       /languages
 */
 
-require_once('custom-settings-page.php');
+//require_once('custom-settings-page.php');
 
 const ANCHORS = [
     'online roof quote',
@@ -44,11 +44,11 @@ function callback_for_setting_up_scripts() {
  */
 function instantroofer_shortcode() {
 
+    return 'debugging';
+
     $settings = get_option('instantroofer_options');
 
     $accountId = $settings['instantroofer_field_account_id'];
-
-    return 'debugging';
 
     if(!$accountId) {
         return <<<STR
