@@ -195,9 +195,7 @@ STR;
         <option value="$id" $selectedAttr>$stackName</option>
 STR;
     }
-    echo <<<STR
-    </select>
-STR;
+    echo '</select>';
 }
 
 /**
