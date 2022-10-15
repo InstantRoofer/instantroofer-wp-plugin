@@ -67,22 +67,11 @@ function instantroofer_settings_init()
     );
 
     addField('account_id', 'Account ID');
+    addField('width', 'Width in pixels');
+    addField('height', 'Height in pixels');
+//    addField('font_family', 'Font Family');
+    addField('font_color', 'Font Color');
 
-    add_settings_field(
-        'instantroofer_field_width',
-        __('Width', 'general'),
-        'instantroofer_field_width_cb',
-        'general',
-        'instantroofer_section_developers'
-    );
-
-    add_settings_field(
-        'instantroofer_field_height',
-        __('Height', 'general'),
-        'instantroofer_field_height_cb',
-        'general',
-        'instantroofer_section_developers'
-    );
 
     add_settings_field(
         'instantroofer_field_font_family',
@@ -96,14 +85,6 @@ function instantroofer_settings_init()
             'class' => 'instantroofer_row',
             'instantroofer_custom_data' => 'custom',
         )
-    );
-
-    add_settings_field(
-        'instantroofer_field_font_color',
-        __('Font Color', 'general'),
-        'instantroofer_field_font_color_cb',
-        'general',
-        'instantroofer_section_developers'
     );
 }
 
