@@ -19,9 +19,11 @@ const colorPickerFields = {
 
 jQuery(document).ready(function($){
     for(const fieldId in colorPickerFields) {
+        // Initialize color picker:
         const input = $(`#${fieldId}`);
         const options = colorPickerFields[fieldId];
         input.wpColorPicker(options);
+        // Set color of button to black if none selected ever:
         const colorButton = input.parents('div.wp-picker-container').first().find('button.wp-color-result').first();
         if(input.val().length === 0) {
             colorButton.css({backgroundColor: options.defaultColor});
