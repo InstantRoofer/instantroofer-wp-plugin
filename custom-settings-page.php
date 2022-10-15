@@ -96,7 +96,7 @@ function instantroofer_settings_init()
     );
 
     add_settings_field(
-        'instantroofer_field_font_family', // As of WP 4.6 this value is used only internally.
+        'instantroofer_field_font_family',
         // Use $args' label_for to populate the id inside the callback.
         __('Font Family', 'general'),
         'instantroofer_field_font_family_cb',
@@ -160,7 +160,7 @@ function instantroofer_field_font_family_cb($args)
     <select
         id="{$args['label_for']}"
         data-custom="{$args['instantroofer_custom_data']}"
-        name="instantroofer_options[$escLabel"
+        name="instantroofer_options[$escLabel]"
     >
 STR;
     foreach (FONT_FAMILIES as $stack) {
