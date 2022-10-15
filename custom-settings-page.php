@@ -48,7 +48,7 @@ const DEFAULTS = array(
 
 const UUID_RGX = "/[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-(:?8|9|A|B)[a-f0-9]{3}-[a-f0-9]{12}/i";
 
-const FONT_FAMILY_RGX = "/^[0-9a-z,- ]+$/i";
+const FONT_FAMILY_RGX = "/^[0-9a-zA-Z,- ]+$/";
 
 function sanitize_settings($input)
 {
