@@ -4,6 +4,10 @@
  * these functions could be run multiple times; this would result in a fatal error.
  */
 
+/**
+ * Latest
+ */
+
 const FONT_FAMILIES = [
     'Arial, Helvetica Neue, Helvetica, sans-serif',
     'Baskerville, Baskerville Old Face, Garamond, Times New Roman, serif',
