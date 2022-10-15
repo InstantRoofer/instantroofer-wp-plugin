@@ -69,10 +69,10 @@ function instantroofer_settings_init()
     addField('account_id', 'Account ID');
     addField('width', 'Width in pixels');
     addField('height', 'Height in pixels');
-//    addField('font_family', 'Font Family');
+    addField('font_family', 'Font Family');
     addField('font_color', 'Font Color');
 
-
+/*
     add_settings_field(
         'instantroofer_field_font_family',
         // Use $args' label_for to populate the id inside the callback.
@@ -86,7 +86,7 @@ function instantroofer_settings_init()
             'instantroofer_custom_data' => 'custom',
         )
     );
-}
+}*/
 
 /**
  * Register our instantroofer_settings_init to the admin_init action hook.
@@ -180,17 +180,16 @@ STR;
 function instantroofer_field_font_family_cb($args)
 {
     $options = get_option('instantroofer_options');
-    $escLabel = esc_attr($args['label_for']);
+//    $escLabel = esc_attr($args['label_for']);
     echo <<<STR
     <select
-        id="{$args['label_for']}"
-        data-custom="{$args['instantroofer_custom_data']}"
-        name="instantroofer_options[$escLabel]"
+        id="instantroofer_field_font_family"
+        name="instantroofer_options[instantroofer_field_font_family]"
     >
 STR;
     foreach (FONT_FAMILIES as $id => $stack) {
         $stackName = explode(',', $stack)[0];
-        $value = $options[$args['label_for']];
+        $value = $options['instantroofer_field_font_family'];
         $selectedAttr = isset($value) ? (selected($value, $id, false)) : ('');
         echo <<<STR
         <option value="$id" $selectedAttr>$stackName</option>
