@@ -23,9 +23,8 @@ jQuery(document).ready(function($){
         const options = colorPickerFields[fieldId];
         input.wpColorPicker(options);
         const colorButton = input.parents('div.wp-picker-container').first().find('button.wp-color-result').first();
-        console.log('colorButton has class wp-color-result:', colorButton.hasClass('wp-color-result'));
         if(input.val().length === 0) {
-            colorButton.css({backgroundColor: options.defaultColor});
+            //colorButton.css({backgroundColor: options.defaultColor});
         }
     }
 });
