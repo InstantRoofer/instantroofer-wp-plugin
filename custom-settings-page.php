@@ -318,4 +318,5 @@ function instantroofer_options_page_html()
         </form>
     </div>
     <?php
+    var_dump(get_option('instantroofer_options'));
 }
