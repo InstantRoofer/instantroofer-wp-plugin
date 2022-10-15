@@ -62,7 +62,10 @@ STR;
 
     $iframeQueryStringVals = array(
         'id' => $accountId,
+        'width' => $settings['instantroofer_field_width'],
+        'height' => $settings['instantroofer_field_height'],
         'fontFamily' => $settings['instantroofer_field_font_family'],
+        'fontColor' => $settings['instantroofer_field_font_color'],
     );
 
     $iframeQueryString = http_build_query($iframeQueryStringVals);
