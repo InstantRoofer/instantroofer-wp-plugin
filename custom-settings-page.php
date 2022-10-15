@@ -27,6 +27,22 @@ function addField($idSuffix, $label) {
     );
 }
 
+function colorFieldCallback($idSuffix)
+{
+    $options = get_option('instantroofer_options');
+    $id = "instantroofer_field_{$idSuffix}";
+    $value = $options[$id];
+    echo <<<STR
+    <input
+        type="text"
+        name="instantroofer_options[$id]"
+        id="$id"
+        value="$value"
+        size="9"
+    >
+STR;
+}
+
 define("FONT_FAMILIES", getFontFamilies());
 
 const DEFAULTS = array(
@@ -83,6 +99,8 @@ function instantroofer_settings_init()
         )
     );
     addField('font_color', 'Font Color');
+    addField('primary_color', 'Call-to-Action Color');
+    addField('background_color', 'Background Color');
 
 
 }
@@ -203,17 +221,23 @@ STR;
  */
 function instantroofer_field_font_color_cb()
 {
-    $options = get_option('instantroofer_options');
-    $value = $options['instantroofer_field_font_color'];
-    echo <<<STR
-    <input
-        type="text"
-        name="instantroofer_options[instantroofer_field_font_color]"
-        id="instantroofer_field_font_color"
-        value="$value"
-        size="9"
-    >
-STR;
+    colorFieldCallback('font_color');
+}
+
+/**
+ * Font color field callback function.
+ */
+function instantroofer_field_background_color_cb()
+{
+    colorFieldCallback('background_color');
+}
+
+/**
+ * Font color field callback function.
+ */
+function instantroofer_field_primary_color_cb()
+{
+    colorFieldCallback('primary_color');
 }
 
 /**
