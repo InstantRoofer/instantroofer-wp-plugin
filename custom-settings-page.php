@@ -48,16 +48,16 @@ const DEFAULTS = array(
 
 const UUID_RGX = "/[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-(:?8|9|A|B)[a-f0-9]{3}-[a-f0-9]{12}/i";
 
-const FONT_FAMILY_RGX = "/^[a-z,- ]+$/i";
+const FONT_FAMILY_RGX = "/^[0-9a-z,- ]+$/i";
 
 function sanitize_settings($input)
 {
     return array(
         'instantroofer_field_account_id' => preg_match(UUID_RGX, $input['instantroofer_field_account_id']) === 1 ? $input['instantroofer_field_account_id'] : DEFAULTS['instantroofer_field_account_id'],
-        'instantroofer_field_font_family' => preg_match(FONT_FAMILY_RGX, $input['instantroofer_field_font_family']) === 1 ? $input['instantroofer_field_font_family'] : DEFAULTS['instantroofer_field_font_family'],
         'instantroofer_field_width' => (int)$input['instantroofer_field_width'] > 0 ? $input['instantroofer_field_width'] : DEFAULTS['instantroofer_field_width'],
         'instantroofer_field_height' => (int)$input['instantroofer_field_height'] > 0 ? $input['instantroofer_field_height'] : DEFAULTS['instantroofer_field_height'],
-        'instantroofer_field_font_color' => $input['instantroofer_field_font_color'] ? $input['instantroofer_field_font_color'] : DEFAULTS['instantroofer_field_font_color'],
+        'instantroofer_field_font_family' => preg_match(FONT_FAMILY_RGX, $input['instantroofer_field_font_family']) > 0 ? $input['instantroofer_field_font_family'] : DEFAULTS['instantroofer_field_font_family'],
+        'instantroofer_field_font_color' => $input['instantroofer_field_font_color'] ?: DEFAULTS['instantroofer_field_font_color'],
     );
 }
 
