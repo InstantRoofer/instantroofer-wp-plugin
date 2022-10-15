@@ -9,6 +9,24 @@ function getFontFamilies() {
     return json_decode($json);
 }
 
+/**
+ * Register a new field in the "instantroofer_section_developers" section, inside the "general" page.
+ *
+ * @param string $idSuffix The part after "instantroofer_field_"
+ * @param string $label
+ * @return void
+ */
+function addField($idSuffix, $label) {
+    $id = "instantroofer_field_{$idSuffix}";
+    add_settings_field(
+        $id,
+        __($label, 'general'),
+        "{$id}_cb",
+        'general',
+        'instantroofer_section_developers'
+    );
+}
+
 define("FONT_FAMILIES", getFontFamilies());
 
 const DEFAULTS = array(
@@ -27,26 +45,8 @@ function sanitize_settings($input)
         'instantroofer_field_account_id' => preg_match(UUID_RGX, $input['instantroofer_field_account_id']) === 1 ? $input['instantroofer_field_account_id'] : DEFAULTS['instantroofer_field_account_id'],
         'instantroofer_field_width' => (int)$input['instantroofer_field_width'] > 0 ? $input['instantroofer_field_width'] : DEFAULTS['instantroofer_field_width'],
         'instantroofer_field_height' => (int)$input['instantroofer_field_height'] > 0 ? $input['instantroofer_field_height'] : DEFAULTS['instantroofer_field_height'],
-        'instantroofer_field_font_family' => isset(FONT_FAMILIES[$input['instantroofer_field_font_family']]) ? $input['instantroofer_field_font_family'] : DEFAULTS['instantroofer_field_font_family'],
+        'instantroofer_field_font_family' => FONT_FAMILIES[$input['instantroofer_field_font_family']] ? $input['instantroofer_field_font_family'] : DEFAULTS['instantroofer_field_font_family'],
         'instantroofer_field_font_color' => $input['instantroofer_field_font_color'] ?: DEFAULTS['instantroofer_field_font_color'],
-    );
-}
-
-/**
- * Register a new field in the "instantroofer_section_developers" section, inside the "general" page.
- *
- * @param string $id
- * @param string $idSuffix The part after "instantroofer_field_"
- * @return void
- */
-function addField($idSuffix, $label) {
-    $id = "instantroofer_field_{$idSuffix}";
-    add_settings_field(
-        $id,
-        __($label, 'general'),
-        "{$id}_cb",
-        'general',
-        'instantroofer_section_developers'
     );
 }
 
