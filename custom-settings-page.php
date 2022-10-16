@@ -13,7 +13,6 @@ foreach($colorsConfig['defaults'] as $id => $color) {
     $defaults[$id] = $color;
 }
 define("DEFAULTS", $defaults);
-//var_dump(DEFAULTS);
 
 const UUID_RGX = "/[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-(:?8|9|A|B)[a-f0-9]{3}-[a-f0-9]{12}/i";
 
@@ -63,6 +62,7 @@ STR;
 function instantroofer_field_account_id_cb()
 {
     $options = get_option('instantroofer_options');
+    var_dump($options);
     $value = $options['instantroofer_field_account_id'];
     echo <<<STR
     <input
