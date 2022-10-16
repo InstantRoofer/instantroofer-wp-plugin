@@ -13,6 +13,7 @@ $colorsConfig = parseJsonFile('config/colors.json');
 foreach($colorsConfig['defaults'] as $id => $color) {
     $DEFAULTS[$id] = $color;
 }
+var_dump(DEFAULTS);
 
 const UUID_RGX = "/[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-(:?8|9|A|B)[a-f0-9]{3}-[a-f0-9]{12}/i";
 
