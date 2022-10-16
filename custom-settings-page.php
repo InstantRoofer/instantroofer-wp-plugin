@@ -9,14 +9,15 @@ $defaults = array(
     'instantroofer_field_font_family' => 'arial',
 );
 $colorsConfig = parseJsonFile('config/colors.json');
-foreach($colorsConfig['defaults'] as $id => $color) {
+foreach ($colorsConfig['defaults'] as $id => $color) {
     $defaults[$id] = $color;
 }
 define("DEFAULTS", $defaults);
 
 const UUID_RGX = "/[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-(:?8|9|A|B)[a-f0-9]{3}-[a-f0-9]{12}/i";
 
-function parseJsonFile ($path) {
+function parseJsonFile($path)
+{
     $json = file_get_contents(plugins_url($path, __FILE__));
     return json_decode($json, true);
 }
@@ -28,7 +29,8 @@ function parseJsonFile ($path) {
  * @param string $label
  * @return void
  */
-function addField($idSuffix, $label) {
+function addField($idSuffix, $label)
+{
     $id = "instantroofer_field_{$idSuffix}";
     add_settings_field(
         $id,
@@ -42,8 +44,8 @@ function addField($idSuffix, $label) {
 function colorFieldCallback($idSuffix)
 {
     $options = get_option('instantroofer_options');
-    $id = "instantroofer_field_{$idSuffix}";
-    $value = isset($options[$id]) ?? DEFAULTS[$id];
+    $id = esc_attr("instantroofer_field_{$idSuffix}");
+    $value = $options[$id] ?? DEFAULTS[$id];
     echo <<<STR
     <input
         type="text"
