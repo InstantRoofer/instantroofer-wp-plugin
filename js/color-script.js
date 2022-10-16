@@ -15,6 +15,7 @@ for(const id in colorsConfig.defaults) {
         palettes: true
     }
 }
+console.log('colorPickerFields',colorPickerFields)
 
 jQuery(document).ready(function($){
     for(const fieldId in colorPickerFields) {
