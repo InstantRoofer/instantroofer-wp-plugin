@@ -77,7 +77,7 @@ STR;
     $output = <<<STR
         <div
             class="instantroofer-container"
-            style="width: $widthAttr; height: $heightAttr; background-image: url('$spinnerUrl'); background-repeat: no-repeat; background-position: center;"
+            style="width: $widthAttr; height: $heightAttr;"
         >
             <iframe
                 id="instantroofer-iframe"
@@ -85,7 +85,7 @@ STR;
                 src="https://book.instantroofer.com?$$iframeQueryString"
                 width="$widthAttr"
                 height="$heightAttr"
-                style="border:0"
+                style="border:0; background-image: url('$spinnerUrl'); background-repeat: no-repeat; background-position: center;"
             ></iframe>
             <p><a href="https://instantroofer.com" target="_blank">$anchorText</a></p>
         </div>
