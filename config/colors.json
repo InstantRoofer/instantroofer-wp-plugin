@@ -1,0 +1,8 @@
+{
+  "defaults":{
+    "instantroofer_field_font_color" : "#000000",
+    "instantroofer_field_primary_color" : "#00FF00",
+    "instantroofer_field_secondary_color" : "#FF0000",
+    "instantroofer_field_background_color" : "#FFFFFF"
+  }
+}

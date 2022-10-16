@@ -1,11 +1,7 @@
 <?php
-/**
- * @internal never define functions inside callbacks.
- * these functions could be run multiple times; this would result in a fatal error.
- */
 
-function getFontFamilies() {
-    $json = file_get_contents(plugins_url('config/fonts.json', __FILE__));
+function parseJsonFile ($path) {
+    $json = file_get_contents(plugins_url($path, __FILE__));
     return json_decode($json, true);
 }
 
@@ -43,18 +39,20 @@ function colorFieldCallback($idSuffix)
 STR;
 }
 
-define("FONT_FAMILIES", getFontFamilies());
+define("FONT_FAMILIES", parseJsonFile('config/fonts.json'));
 
 const DEFAULTS = array(
     'instantroofer_field_account_id' => '',
     'instantroofer_field_width' => 640,
     'instantroofer_field_height' => 690,
     'instantroofer_field_font_family' => 'arial',
-    'instantroofer_field_font_color' => '#000000',
-    'instantroofer_field_primary_color' => '#00FF00',
-    'instantroofer_field_secondary_color' => '#FF0000',
-    'instantroofer_field_background_color' => '#FFFFFF'
 );
+
+$colorsConfig = parseJsonFile('config/colors.json');
+foreach($colorsConfig['defaults'] as $id => $color) {
+    $DEFAULTS[$id] = $color;
+}
+
 
 const UUID_RGX = "/[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-(:?8|9|A|B)[a-f0-9]{3}-[a-f0-9]{12}/i";
 
@@ -132,7 +130,7 @@ add_action('admin_init', 'instantroofer_settings_init');
 function instantroofer_section_developers_callback($args)
 {
     ?>
-    <p id="<?php echo esc_attr($args['id']); ?>"><?php esc_html_e('Customize the Instant Roofer booking wizard.', 'general'); ?></p>
+    <p id="<?php echo esc_attr($args['id']); ?>"><?php esc_html_e('Customize the Instant Roofer Booking Engine.', 'general'); ?></p>
     <?php
 }
 
@@ -250,8 +248,8 @@ function instantroofer_field_secondary_color_cb()
 function instantroofer_options_page()
 {
     add_menu_page(
-        'Instantroofer',
-        'Instant Roofer',
+        'Instant Roofer Booking Engine',
+        'Instant Roofer Booking Engine',
         'manage_options',
         'general',
         'instantroofer_options_page_html'
@@ -271,9 +269,10 @@ add_action('admin_menu', 'instantroofer_options_page');
 add_action('admin_enqueue_scripts', 'mw_enqueue_color_picker');
 function mw_enqueue_color_picker($hook_suffix)
 {
-// first check that $hook_suffix is appropriate for your admin page
     wp_enqueue_style('wp-color-picker');
     wp_enqueue_script('color-script-handle', plugins_url('js/color-script.js', __FILE__), array('wp-color-picker'), '1.0.21', true);
+    $colorsJson = file_get_contents(plugins_url('config/colors.json', __FILE__));
+    add_inline_script('color-script-handle', "const colorsConfig = JSON.parse({$colorsJson};", 'before');
 }
 
 
