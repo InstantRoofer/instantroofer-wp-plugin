@@ -64,7 +64,6 @@ STR;
 function instantroofer_field_account_id_cb()
 {
     $options = get_option('instantroofer_options');
-    var_dump($options);
     $value = $options['instantroofer_field_account_id'];
     echo <<<STR
     <input
