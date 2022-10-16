@@ -29,7 +29,7 @@ function parseJsonFile($path)
  * @param string $label
  * @return void
  */
-function addField($idSuffix, $label)
+function addSimpleField($idSuffix, $label)
 {
     $id = "instantroofer_field_{$idSuffix}";
     add_settings_field(
@@ -189,26 +189,14 @@ function instantroofer_settings_init()
         'general'
     );
 
-    addField('account_id', 'Account ID');
-    addField('width', 'Width in pixels');
-    addField('height', 'Height in pixels');
-    add_settings_field(
-        'instantroofer_field_font_family',
-        // Use $args' label_for to populate the id inside the callback.
-        __('Font Family', 'general'),
-        'instantroofer_field_font_family_cb',
-        'general',
-        'instantroofer_section_developers',
-        array(
-            'label_for' => 'instantroofer_field_font_family',
-            'class' => 'instantroofer_row',
-            'instantroofer_custom_data' => 'custom',
-        )
-    );
-    addField('font_color', 'Font Color');
-    addField('primary_color', 'Call-to-Action Color');
-    addField('secondary_color', 'Other UI Elements Color');
-    addField('background_color', 'Background Color');
+    addSimpleField('account_id', 'Account ID');
+    addSimpleField('width', 'Width in pixels');
+    addSimpleField('height', 'Height in pixels');
+    addSelectField('font_family', 'Font Family');
+    addSimpleField('font_color', 'Font Color');
+    addSimpleField('primary_color', 'Call-to-Action Color');
+    addSimpleField('secondary_color', 'Other UI Elements Color');
+    addSimpleField('background_color', 'Background Color');
 }
 
 /**
