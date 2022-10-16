@@ -43,7 +43,7 @@ function colorFieldCallback($idSuffix)
 {
     $options = get_option('instantroofer_options');
     $id = "instantroofer_field_{$idSuffix}";
-    $value = $options[$id];
+    $value = $options[$id] || DEFAULTS[$id];
     echo <<<STR
     <input
         type="text"
