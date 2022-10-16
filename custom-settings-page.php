@@ -62,7 +62,6 @@ STR;
 function instantroofer_field_account_id_cb()
 {
     $options = get_option('instantroofer_options');
-    var_dump($options);
     $value = $options['instantroofer_field_account_id'];
     echo <<<STR
     <input
@@ -204,7 +203,7 @@ function instantroofer_settings_init()
             'instantroofer_custom_data' => 'custom',
         )
     );
-    // addField('font_color', 'Font Color');
+    addField('font_color', 'Font Color');
     addField('primary_color', 'Call-to-Action Color');
     addField('secondary_color', 'Other UI Elements Color');
     addField('background_color', 'Background Color');

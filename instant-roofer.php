@@ -46,6 +46,8 @@ function instantroofer_shortcode() {
 
     $settings = get_option('instantroofer_options');
 
+    var_dump($settings);
+
     $accountId = $settings['instantroofer_field_account_id'];
 
     if(!$accountId) {
