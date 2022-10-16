@@ -272,6 +272,7 @@ function mw_enqueue_color_picker($hook_suffix)
     wp_enqueue_style('wp-color-picker');
     wp_enqueue_script('color-script-handle', plugins_url('js/color-script.js', __FILE__), array('wp-color-picker'), '1.0.21', true);
     $colorsJson = file_get_contents(plugins_url('config/colors.json', __FILE__));
+    var_dump($colorsJson);
     wp_add_inline_script('color-script-handle', "const colorsConfig = JSON.parse({$colorsJson});", 'before');
 }
 
