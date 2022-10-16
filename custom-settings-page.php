@@ -249,7 +249,7 @@ function instantroofer_options_page()
 {
     add_menu_page(
         'Instant Roofer Booking Engine',
-        'Instant Roofer Booking Engine',
+        'Instant Roofer',
         'manage_options',
         'general',
         'instantroofer_options_page_html'
