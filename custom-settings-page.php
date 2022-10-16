@@ -187,12 +187,7 @@ function instantroofer_field_background_color_cb()
 }
 
 /**
- * Font_family field callback function.
- *
- * WordPress has magic interaction with the following keys: label_for, class.
- * - the "label_for" key value is used for the "for" attribute of the <label>.
- * - the "class" key value is used for the "class" attribute of the <tr> containing the field.
- * Note: you can add custom key value pairs to be used inside your callbacks.
+ * Appearance mode field callback function.
  *
  * @param array $args
  */
@@ -228,6 +223,7 @@ function sanitize_settings($input)
         'instantroofer_field_primary_color' => $input['instantroofer_field_primary_color'] ?: DEFAULTS['instantroofer_field_primary_color'],
         'instantroofer_field_secondary_color' => $input['instantroofer_field_secondary_color'] ?: DEFAULTS['instantroofer_field_secondary_color'],
         'instantroofer_field_background_color' => $input['instantroofer_field_background_color'] ?: DEFAULTS['instantroofer_field_background_color'],
+        'instantroofer_field_appearance_mode' => APPEARANCE_MODES[$input['instantroofer_field_appearance_mode']] ? $input['instantroofer_field_appearance_mode'] : DEFAULTS['instantroofer_field_appearance_mode'],
     );
 }
 
