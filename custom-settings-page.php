@@ -37,7 +37,6 @@ function addField($idSuffix, $label) {
         'general',
         'instantroofer_section_developers'
     );
-    add_option($id, '');
 }
 
 function colorFieldCallback($idSuffix)
@@ -178,7 +177,7 @@ function sanitize_settings($input)
 function instantroofer_settings_init()
 {
     // Register a new setting for "general" page.
-    register_setting('general', 'instantroofer_options', 'sanitize_settings');
+    register_setting('instantroofer', 'instantroofer_options', 'sanitize_settings');
 
     // Register a new section in the "general" page.
     add_settings_section(
