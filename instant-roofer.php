@@ -46,8 +46,6 @@ function instantroofer_shortcode() {
 
     $settings = get_option('instantroofer_options');
 
-    var_dump($settings);
-
     $accountId = $settings['instantroofer_field_account_id'];
 
     if(!$accountId) {
@@ -75,7 +73,7 @@ STR;
 
     $iframeQueryString = http_build_query($iframeQueryStringVals);
 
-	return <<<STR
+    $output = <<<STR
         <div
             class="instantroofer-container"
             style="width: $widthAttr; height: $heightAttr; background-image: url('$spinnerUrl'); background-repeat: no-repeat; background-position: center;"
@@ -90,6 +88,8 @@ STR;
             <p><a href="https://instantroofer.com" target="_blank">$anchorText</a></p>
         </div>
 STR;
+    $output .= var_export($settings, true);
+    return $output;
 }
 
 /**
