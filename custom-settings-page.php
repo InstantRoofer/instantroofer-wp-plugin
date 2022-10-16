@@ -2,6 +2,8 @@
 
 define("FONT_FAMILIES", parseJsonFile('config/fonts.json'));
 
+define("APPEARANCE_MODES", parseJsonFile('config/appearance.json'));
+
 $defaults = array(
     'instantroofer_field_account_id' => '',
     'instantroofer_field_width' => 640,
@@ -12,6 +14,7 @@ $colorsConfig = parseJsonFile('config/colors.json');
 foreach ($colorsConfig['defaults'] as $id => $color) {
     $defaults[$id] = $color;
 }
+$defaults['instantroofer_field_appearance_mode'] = 'light';
 define("DEFAULTS", $defaults);
 
 const UUID_RGX = "/[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-(:?8|9|A|B)[a-f0-9]{3}-[a-f0-9]{12}/i";
@@ -38,6 +41,30 @@ function addSimpleField($idSuffix, $label)
         "{$id}_cb",
         'general',
         'instantroofer_section_developers'
+    );
+}
+
+/**
+ * Register a new field in the "instantroofer_section_developers" section, inside the "general" page.
+ *
+ * @param string $idSuffix The part after "instantroofer_field_"
+ * @param string $label
+ * @return void
+ */
+function addSelectField($idSuffix, $label)
+{
+    $id = "instantroofer_field_{$idSuffix}";
+    add_settings_field(
+        $id,
+        __($label, 'general'),
+        "{$id}_cb",
+        'general',
+        'instantroofer_section_developers',
+        array(
+            'label_for' => $id,
+            'class' => 'instantroofer_row',
+            'instantroofer_custom_data' => 'custom',
+        )
     );
 }
 
@@ -159,6 +186,37 @@ function instantroofer_field_background_color_cb()
     colorFieldCallback('background_color');
 }
 
+/**
+ * Font_family field callback function.
+ *
+ * WordPress has magic interaction with the following keys: label_for, class.
+ * - the "label_for" key value is used for the "for" attribute of the <label>.
+ * - the "class" key value is used for the "class" attribute of the <tr> containing the field.
+ * Note: you can add custom key value pairs to be used inside your callbacks.
+ *
+ * @param array $args
+ */
+function instantroofer_field_appearance_mode_cb($args)
+{
+    $options = get_option('instantroofer_options');
+    $escLabel = esc_attr($args['label_for']);
+    echo <<<STR
+    <select
+        id="{$args['label_for']}"
+        data-custom="{$args['instantroofer_custom_data']}"
+        name="instantroofer_options[$escLabel]"
+    >
+STR;
+    foreach (APPEARANCE_MODES as $id => $label) {
+        $value = $options[$args['label_for']];
+        $selectedAttr = isset($value) ? (selected($value, $id, false)) : ('');
+        echo <<<STR
+        <option value="$id" $selectedAttr>$label</option>
+STR;
+    }
+    echo '</select>';
+}
+
 function sanitize_settings($input)
 {
     return array(
@@ -197,6 +255,7 @@ function instantroofer_settings_init()
     addSimpleField('primary_color', 'Call-to-Action Color');
     addSimpleField('secondary_color', 'Other UI Elements Color');
     addSimpleField('background_color', 'Background Color');
+    addSelectField('appearance_mode', 'Appearance Mode');
 }
 
 /**
