@@ -37,6 +37,7 @@ function addField($idSuffix, $label) {
         'general',
         'instantroofer_section_developers'
     );
+    add_option($id, '');
 }
 
 function colorFieldCallback($idSuffix)
