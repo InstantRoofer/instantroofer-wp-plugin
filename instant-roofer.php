@@ -44,9 +44,9 @@ function callback_for_setting_up_scripts() {
  */
 function instantroofer_shortcode() {
 
-    $settings = get_option('instantroofer_options');
+    $options = get_option('instantroofer_options');
 
-    $accountId = $settings['instantroofer_field_account_id'];
+    $accountId = $options['instantroofer_field_account_id'];
 
     if(!$accountId) {
         return <<<STR
@@ -54,22 +54,22 @@ function instantroofer_shortcode() {
 STR;
     }
     $anchorText = get_anchor_text($accountId);
-    $width = $settings['instantroofer_field_width'];
+    $width = $options['instantroofer_field_width'];
     $widthAttr = $width.'px';
-    $height = $settings['instantroofer_field_height'];
+    $height = $options['instantroofer_field_height'];
     $heightAttr = $height.'px';
     $spinnerUrl = plugins_url('assets/Iphone-spinner-2.gif', __FILE__);
 
     $iframeQueryStringVals = array(
         'id' => $accountId,
-        'width' => $settings['instantroofer_field_width'],
-        'height' => $settings['instantroofer_field_height'],
-        'fontFamily' => $settings['instantroofer_field_font_family'],
-        'fontColor' => $settings['instantroofer_field_font_color'],
-        'primaryColor' => $settings['instantroofer_field_primary_color'],
-        'secondaryColor' => $settings['instantroofer_field_secondary_color'],
-        'backgroundColor' => $settings['instantroofer_field_background_color'],
-        'appearanceMode' => $settings['instantroofer_field_appearance_mode'],
+        'width' => $options['instantroofer_field_width'],
+        'height' => $options['instantroofer_field_height'],
+        'fontFamily' => $options['instantroofer_field_font_family'],
+        'fontColor' => $options['instantroofer_field_font_color'],
+        'primaryColor' => $options['instantroofer_field_primary_color'],
+        'secondaryColor' => $options['instantroofer_field_secondary_color'],
+        'backgroundColor' => $options['instantroofer_field_background_color'],
+        'appearanceMode' => $options['instantroofer_field_appearance_mode'],
     );
 
     $iframeQueryString = http_build_query($iframeQueryStringVals);

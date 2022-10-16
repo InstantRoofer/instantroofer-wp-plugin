@@ -19,6 +19,12 @@ define("DEFAULTS", $defaults);
 
 const UUID_RGX = "/[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-(:?8|9|A|B)[a-f0-9]{3}-[a-f0-9]{12}/i";
 
+function getOptionSafe($key) {
+	$options = get_option('instantroofer_options');
+    if(!is_array($options) || !isset($options[$key])) return DEFAULTS[$key];
+	return $options[$key];
+}
+
 function parseJsonFile($path)
 {
     $json = file_get_contents(plugins_url($path, __FILE__));
@@ -70,9 +76,8 @@ function addSelectField($idSuffix, $label)
 
 function colorFieldCallback($idSuffix)
 {
-    $options = get_option('instantroofer_options');
     $id = esc_attr("instantroofer_field_{$idSuffix}");
-    $value = $options[$id] ?? DEFAULTS[$id];
+	$value = getOptionSafe($id);
     echo <<<STR
     <input
         type="text"
@@ -90,8 +95,7 @@ STR;
 
 function instantroofer_field_account_id_cb()
 {
-    $options = get_option('instantroofer_options');
-    $value = $options['instantroofer_field_account_id'];
+	$value = getOptionSafe('instantroofer_field_account_id');
     echo <<<STR
     <input
         type="text"
@@ -106,8 +110,7 @@ STR;
 
 function instantroofer_field_width_cb()
 {
-    $options = get_option('instantroofer_options');
-    $value = $options['instantroofer_field_width'];
+    $value = getOptionSafe('instantroofer_field_width');
     echo <<<STR
     <input
         type="text"
@@ -121,8 +124,7 @@ STR;
 
 function instantroofer_field_height_cb()
 {
-    $options = get_option('instantroofer_options');
-    $value = $options['instantroofer_field_height'];
+    $value = getOptionSafe('instantroofer_field_height');
     echo <<<STR
     <input
         type="text"
@@ -146,7 +148,7 @@ STR;
  */
 function instantroofer_field_font_family_cb($args)
 {
-    $options = get_option('instantroofer_options');
+	$value = getOptionSafe('instantroofer_field_font_family');
     $escLabel = esc_attr($args['label_for']);
     echo <<<STR
     <select
@@ -157,7 +159,6 @@ function instantroofer_field_font_family_cb($args)
 STR;
     foreach (FONT_FAMILIES as $id => $stack) {
         $stackName = explode(',', $stack)[0];
-        $value = $options[$args['label_for']];
         $selectedAttr = isset($value) ? (selected($value, $id, false)) : ('');
         echo <<<STR
         <option value="$id" $selectedAttr>$stackName</option>
@@ -193,7 +194,7 @@ function instantroofer_field_background_color_cb()
  */
 function instantroofer_field_appearance_mode_cb($args)
 {
-    $options = get_option('instantroofer_options');
+	$value = getOptionSafe('instantroofer_field_appearance_mode');
     $escLabel = esc_attr($args['label_for']);
     echo <<<STR
     <select
@@ -203,7 +204,6 @@ function instantroofer_field_appearance_mode_cb($args)
     >
 STR;
     foreach (APPEARANCE_MODES as $id => $label) {
-        $value = $options[$args['label_for']];
         $selectedAttr = isset($value) ? (selected($value, $id, false)) : ('');
         echo <<<STR
         <option value="$id" $selectedAttr>$label</option>
@@ -303,7 +303,7 @@ add_action('admin_menu', 'instantroofer_options_page');
  * so we can use the wpColorPicker jQuery method inside it:
  */
 add_action('admin_enqueue_scripts', 'mw_enqueue_color_picker');
-function mw_enqueue_color_picker($hook_suffix)
+function mw_enqueue_color_picker()
 {
     wp_enqueue_style('wp-color-picker');
     wp_enqueue_script('color-script-handle', plugins_url('js/color-script.js', __FILE__), array('wp-color-picker'), '1.0.22', true);
