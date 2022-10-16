@@ -17,6 +17,7 @@ for (const id in colorsConfig.defaults) {
 }
 
 jQuery(document).ready(function ($) {
+    console.log(colorPickerFields)
     for (const fieldId in colorPickerFields) {
         // Initialize color picker:
         const input = $(`#${fieldId}`);
