@@ -17,6 +17,9 @@ foreach ($colorsConfig['defaults'] as $id => $color) {
 $defaults['instantroofer_field_appearance_mode'] = 'light';
 define("DEFAULTS", $defaults);
 
+// Developers: uncomment this temporarily to delete all the settings:
+// delete_option('instantroofer_options');
+
 const UUID_RGX = "/[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-(:?8|9|A|B)[a-f0-9]{3}-[a-f0-9]{12}/i";
 
 function getOptionSafe($key) {
@@ -81,9 +84,10 @@ function colorFieldCallback($idSuffix)
     echo <<<STR
     <input
         type="text"
-        name="instantroofer_options[$id]"
         id="$id"
+        name="instantroofer_options[$id]"
         value="$value"
+        class="instantroofer-color-picker"
         size="9"
     >
 STR;

@@ -90,7 +90,7 @@ STR;
             <p><a href="https://instantroofer.com" target="_blank">$anchorText</a></p>
         </div>
 STR;
-    // $output .= var_export($settings, true);
+//	$output .= var_export($options, true);
     return $output;
 }
 
