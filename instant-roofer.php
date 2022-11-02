@@ -1,8 +1,8 @@
 <?php
 /**
-* Plugin Name:       Instant Roofer Booking Engine
+* Plugin Name:       Instant Roofer Roofing Calculator
 * Plugin URI:        https://instantroofer.com/integrations/wordpress-plugin
-* Description:       Embed the Instant Roofer Booking Engine on your WP site.
+* Description:       Provide instant roof quotes online for the entire United States. Embed with shortcode to instantly provide roof replacement quotes.
 * Version:           1.11.2
 * Requires at least: 5.2
 * Requires PHP:      7.2
@@ -17,13 +17,13 @@
 require_once('custom-settings-page.php');
 
 const ANCHORS = [
-    'online roof quote',
-    'free roof quote',
+    'Online Roof Quote',
+    'Free Roof Quote',
     'Instant Roofer',
-    'roof replacement cost',
-    'roofing calculator',
-    'cost of roof replacement',
-    'cost to replace roof'
+    'Roof Replacement Cost',
+    'Roofing Calculator',
+    'Cost of Roof Replacement',
+    'Cost to Replace Roof'
 ];
 
 function get_anchor_text($id) {
@@ -87,7 +87,7 @@ STR;
                 height="$heightAttr"
                 style="border:0; background-image: url('$spinnerUrl'); background-repeat: no-repeat; background-position: center;"
             ></iframe>
-            <p><a href="https://instantroofer.com" target="_blank">$anchorText</a></p>
+            <p><a href="https://instantroofer.com" target="_blank">$anchorText</a> - Instant Roofer</p>
         </div>
 STR;
 //	$output .= var_export($options, true);
