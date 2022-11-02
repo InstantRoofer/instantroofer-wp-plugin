@@ -280,7 +280,7 @@ function instantroofer_section_developers_callback($args)
     ?>
     <p id="<?php echo esc_attr($args['id']); ?>"><?php esc_html_e('Customize the Instant Roofer Booking Engine.', 'general'); ?></p>
     <p><i>Start giving roof replacement quotes online in minutes with Instant Roofer. <strong><a href="https://signup.instantroofer.com/">Sign Up</a>.</i></strong></p>
-    <p>Insert Instant Roof Online Roof Quote anywhere with the shortcode [instantroofer].</p>
+    <p>Insert Instant Roof Online Roof Quote anywhere with the shortcode [instantroofer]</p>
     <?php
 }
 
