@@ -87,7 +87,7 @@ STR;
                 height="$heightAttr"
                 style="border:0; background-image: url('$spinnerUrl'); background-repeat: no-repeat; background-position: center;"
             ></iframe>
-            <p><a href="https://www.instantroofer.com" style=text-align:center; target="_blank">$anchorText</a> - Instant Roofer</p>
+            <p><a href="https://www.instantroofer.com" style="text-align:center" target="_blank">$anchorText</a> - Instant Roofer</p>
         </div>
 STR;
 //	$output .= var_export($options, true);
