@@ -7,7 +7,7 @@ define("APPEARANCE_MODES", parseJsonFile('config/appearance.json'));
 $defaults = array(
     'instantroofer_field_account_id' => '',
     'instantroofer_field_width' => 640,
-    'instantroofer_field_height' => 690,
+    'instantroofer_field_height' => 700,
     'instantroofer_field_font_family' => 'arial',
 );
 $colorsConfig = parseJsonFile('config/colors.json');

@@ -54,16 +54,10 @@ function instantroofer_shortcode() {
 STR;
     }
     $anchorText = get_anchor_text($accountId);
-    $width = $options['instantroofer_field_width'];
-    $widthAttr = $width.'px';
-    $height = $options['instantroofer_field_height'];
-    $heightAttr = $height.'px';
     $spinnerUrl = plugins_url('assets/Iphone-spinner-2.gif', __FILE__);
 
     $iframeQueryStringVals = array(
         'id' => $accountId,
-        'width' => $options['instantroofer_field_width'],
-        'height' => $options['instantroofer_field_height'],
         'fontFamily' => $options['instantroofer_field_font_family'],
         'fontColor' => $options['instantroofer_field_font_color'],
         'primaryColor' => $options['instantroofer_field_primary_color'],
@@ -77,14 +71,11 @@ STR;
     $output = <<<STR
         <div
             class="instantroofer-container"
-            style="width: $widthAttr; height: $heightAttr;"
         >
             <iframe
                 id="instantroofer-iframe"
                 title="Instant Roofer Booking Engine"
                 src="https://book.instantroofer.com?$$iframeQueryString"
-                width="$widthAttr"
-                height="$heightAttr"
                 style="border:0; background-image: url('$spinnerUrl'); background-repeat: no-repeat; background-position: center;"
             ></iframe>
             <p><a href="https://www.instantroofer.com" style=text-align:center; target="_blank">$anchorText</a> - Instant Roofer</p>
