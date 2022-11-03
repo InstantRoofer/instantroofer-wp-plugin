@@ -69,17 +69,13 @@ STR;
     $iframeQueryString = http_build_query($iframeQueryStringVals);
 
     $output = <<<STR
-        <div
-            class="instantroofer-container"
-        >
-            <iframe
-                id="instantroofer-iframe"
-                title="Instant Roofer Booking Engine"
-                src="https://book.instantroofer.com?$$iframeQueryString"
-                style="border:0; background-image: url('$spinnerUrl'); background-repeat: no-repeat; background-position: center;"
-            ></iframe>
-            <p style="text-align:center"><a href="https://www.instantroofer.com" target="_blank">$anchorText</a> - Instant Roofer</p>
-        </div>
+	    <iframe
+	        id="instantroofer-iframe"
+	        title="Instant Roofer Booking Engine"
+	        src="https://book.instantroofer.com?$$iframeQueryString"
+	        style="border:0; aspect-ratio: 0.6761; height: 100%; width: 100%; background-image: url('$spinnerUrl'); background-repeat: no-repeat; background-position: center;"
+	    ></iframe>
+	    <p style="text-align:center"><a href="https://www.instantroofer.com" target="_blank">$anchorText</a> - Instant Roofer</p>
 STR;
 //	$output .= var_export($options, true);
     return $output;
